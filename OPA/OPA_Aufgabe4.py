@@ -12,16 +12,16 @@ from uncertainties import ufloat
 from uncertainties import unumpy as unp
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
-#Ungenau: Messkala 0,5mm,Scharfstellen rechts 1mm,Scharfstellen links 3mm
-
+#Unsicherheiten Autoko: Messkala 0.5, Scharfstellen 1mm, Bessel: Messkala 0,5mm,Scharfstellen rechts 1mm,Scharfstellen links 3mm
 #alles in cm
-gegenstand = 19.0
+gegenstand = 13
+
+autoko0 = [30.3, 30.8, 30.7, 30.5, 30.5]
+autoko180 = [24.1, 24.0, 23.6, 23.9, 24.0]
+autospiegel = 40
+
+bessellinks = [33.2, 34.3, 33.8, 33.9, 33.2]
+besselrechts = [81.0, 80.8, 80.9, 80.7, 81.1]
+besselschirm = 95
 
 
-linksabs_b = [31.4, 31.2, 30.9, 31.0, 30.9]
-rechtsabs_b = [72.8, 72.6, 72.9, 73.05, 73.0]
-schirm_b = 85
-
-linksabs_g = [27.5, 28.0, 27.8, 27.7, 28.0]
-rechtsabs_g = [58.0, 57.9, 58.1, 57.95, 57.9]
-schirm_g = 67

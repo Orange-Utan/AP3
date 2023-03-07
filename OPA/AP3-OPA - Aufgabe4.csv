@@ -1,0 +1,13 @@
+Autokollimation,Gegenstand cm,System 0° cm,System 180° cm,Spiegel cm,,Ungenauigkeiten
+"Linsensystem erst G, dann E",13,"30,3","24,1",40,,"Messkala 0,5mm"
+Marker bei G,13,"30,8",24,40,,Scharfstellen 1mm
+,13,"30,7","23,6",40,,
+,13,"30,5","23,9",40,,
+,13,"30,5",24,40,,
+,,,,,,
+Bessel,Gegenstand cm,System links cm,System rechts cm,Spiegel cm,,"Messkala 0,5mm"
+erst G dann E,13,"33,2",81,95,,Scharfstellen links 5mm
+Marker bei G,13,"34,3","80,8",95,,Scharf rechts 1mm
+,13,"33,8","80,9",95,,
+,13,"33,9","80,7",95,,
+,13,"33,2","81,1",95,,

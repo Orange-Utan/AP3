@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('OPA/AP3-OPA - Aufgabe4.csv', "r"))
+cr = csv.reader(open('OPA/AP3-OPA - Aufgabe5.csv', "r"))
 outputArray = []
 oA = []
 
@@ -13,9 +13,9 @@ for row in cr:
 
 
 
-startAtLine =8
-spalte = 1
-spalte_end = 4
+startAtLine =2
+spalte = 0
+spalte_end = 9
 endAtLine = 12
 
 

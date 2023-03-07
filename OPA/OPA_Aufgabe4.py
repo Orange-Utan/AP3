@@ -16,12 +16,12 @@ from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 #alles in cm
 gegenstand = 13
 
-autoko0 = [30.3, 30.8, 30.7, 30.5, 30.5]
-autoko180 = [24.1, 24.0, 23.6, 23.9, 24.0]
+autoko0 = np.array([30.3, 30.8, 30.7, 30.5, 30.5])
+autoko180 = np.array([24.1, 24.0, 23.6, 23.9, 24.0])
 autospiegel = 40
 
-bessellinks = [33.2, 34.3, 33.8, 33.9, 33.2]
-besselrechts = [81.0, 80.8, 80.9, 80.7, 81.1]
+bessellinks = np.array([33.2, 34.3, 33.8, 33.9, 33.2])
+besselrechts = np.array([81.0, 80.8, 80.9, 80.7, 81.1])
 besselschirm = 95
 
 

@@ -38,13 +38,13 @@ u_gegenstand_b = ufloat(19/100,1/2/2/np.sqrt(6)/1000)
 u_kabs_b = ufloat(np.mean(kabs_b),np.std(kabs_b)*2.96)
 u_labs_b = ufloat(np.mean(labs_b),np.std(labs_b)*2.96)
 u_krel_b = -u_gegenstand_b+u_kabs_b
-u_lrel_b = -u_gegenstand_b+u_kabs_b
+u_lrel_b = -u_gegenstand_b+u_labs_b
 
 u_gegenstand_g = ufloat(19/100,1/2/2/np.sqrt(6)/1000)
 u_kabs_g = ufloat(np.mean(kabs_g),np.std(kabs_g)*2.96)
 u_labs_g = ufloat(np.mean(labs_g),np.std(labs_g)*2.96)
 u_krel_g = -u_gegenstand_g+u_kabs_g
-u_lrel_g = -u_gegenstand_g+u_kabs_g
+u_lrel_g = -u_gegenstand_g+u_labs_g
 
 
 print(u_krel_b)

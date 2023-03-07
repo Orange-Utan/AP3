@@ -18,10 +18,10 @@ from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 gegenstand = 19.0
 
 
-linksabs_b = [31.4, 31.2, 30.9, 31.0, 30.9]
-rechtsabs_b = [72.8, 72.6, 72.9, 73.05, 73.0]
+linksabs_b = np.array([31.4, 31.2, 30.9, 31.0, 30.9])
+rechtsabs_b = np.array([72.8, 72.6, 72.9, 73.05, 73.0])
 schirm_b = 85
 
-linksabs_g = [27.5, 28.0, 27.8, 27.7, 28.0]
-rechtsabs_g = [58.0, 57.9, 58.1, 57.95, 57.9]
+linksabs_g = np.array([27.5, 28.0, 27.8, 27.7, 28.0])
+rechtsabs_g = np.array([58.0, 57.9, 58.1, 57.95, 57.9])
 schirm_g = 67

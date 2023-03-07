@@ -51,3 +51,8 @@ print(u_krel_b)
 print(u_lrel_b)
 print(u_krel_g)
 print(u_lrel_g)
+
+print('f für Linse b:')
+print((u_krel_b+u_lrel_b)/2)
+print('f für Linse g:')
+print((u_krel_g+u_lrel_g)/2)

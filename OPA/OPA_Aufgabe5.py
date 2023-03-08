@@ -22,7 +22,7 @@ links = np.array([32.5, 32.2, 33.4, 32.7, 33.2, 33.5, 33.5, 33.05, 34.5, 34.5, 3
 ulinks = np.array([9,8.5,8,7.5,7.5,7,6.5,6,5.5,5,4.5])/1000
 rechts= np.array([128.4, 122.6, 117.6, 112.5, 107.4, 102.0, 96.9, 91.8, 86.1, 79.9, 75.4])/100
 urechts = np.array([6,5.5,5,4.5,4,4.5,5,5.5,6,6,6])/1000
-geggroesserechts = 25/100
+geggroesserechts = 25/1000
 bildGrRechts = np.array([2.25, 2.5, 3.0, 2.5, 4.0, 4.0, 4.5, 4.5, 5.5, 7.0, 7.5])/1000
 ubildrechts = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.3, 0.5, 0.7])/1000
 
@@ -55,8 +55,8 @@ def func(x,f,h):
     return f*x+h
 
 
-fig, ax1 =plt.subplots(1,2)
-fig, ax2 = plt.subplots(1,2)
+fig1, ax1 =plt.subplots(1,2)
+fig2, ax2 = plt.subplots(1,2)
 
 
 
@@ -113,15 +113,15 @@ ax2[1].errorbar(
 popt3, pcov3 = curve_fit(func, xdata=nominal_values(xg1rechts), ydata=nominal_values(grechts1))
 popt4, pcov4 = curve_fit(func, xdata=nominal_values(xg2rechts), ydata=nominal_values(grechts2))
 
-ax2[0].plot(np.linspace(-150,0,100),func(np.linspace(-150,0,100), popt3[0],popt3[1]), 'purple', label='Fit für g bei linker konfig')
-ax2[1].plot(np.linspace(0.95,1,100),func(np.linspace(0.95,1,100), popt4[0],popt4[1]), 'g', label='Fit für g` bei linker konfig')
+ax2[0].plot(np.linspace(-10,0,100),func(np.linspace(-10,0,100), popt3[0],popt3[1]), 'purple', label='Fit für g bei linker konfig')
+ax2[1].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt4[0],popt4[1]), 'g', label='Fit für g` bei linker konfig')
 
 
 
 print(popt1)
-print(np.sqrt(pcov1))
+#print(np.sqrt(pcov1))
 print(popt2)
-print(np.sqrt(pcov2))
+#print(np.sqrt(pcov2))
 print(popt3)
 print(np.sqrt(pcov3))
 print(popt4)

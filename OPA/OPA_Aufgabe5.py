@@ -35,10 +35,93 @@ u_rechts = uarray(rechts, urechts/(2*np.sqrt(6)))
 u_geGrRechts = uarray(geggroesserechts,(2.5/1000)/(2*np.sqrt(6))) #y
 u_bildGrRechts = uarray(bildGrRechts, ubildrechts/(2*np.sqrt(6))) #y'
 
-#g= u_gegen - u_links
-#g'= u_schirm-u_rechts
+#g= u_gegen - u_linse
+#g'= u_schirm-u_linse
 
-glinks = u_gegen - u_links
-grechts = u_schirm - u_rechts
+glinks1 = -abs(u_gegen - u_links)
+glinks2 = abs(u_schirm - u_links)
+grechts1 = -abs(u_gegen - u_rechts)
+grechts2 = abs(u_schirm - u_rechts)
+
+betalinks = u_bildGrLinks/u_geGrLinks
+betarechts = u_bildGrRechts/u_geGrRechts
+
+xg1links = 1-1/betalinks
+xg2links = 1-betalinks
+xg1rechts = 1-1/betarechts
+xg2rechts = 1-betarechts
+
+def func(x,f,h):
+    return f*x+h
 
 
+fig, ax1 =plt.subplots(1,2)
+fig, ax2 = plt.subplots(1,2)
+
+
+
+ax1[0].errorbar(
+    nominal_values(xg1links),
+    nominal_values(glinks1),
+    std_devs(xg1links),
+    std_devs(glinks1),
+    marker='.',
+    markerfacecolor = 'pink',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label = 'Messung bei 1V',  # Name in der Legende
+)
+
+ax1[1].errorbar(
+    nominal_values(xg2links),
+    nominal_values(glinks2),
+    std_devs(xg2links),
+    std_devs(glinks2),
+    marker='.',
+    markerfacecolor = 'cyan',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label = 'Messung bei 1V',  # Name in der Legende
+)
+
+popt1, pcov1 = curve_fit(func, xdata=nominal_values(xg1links), ydata=nominal_values(glinks1))
+popt2, pcov2 = curve_fit(func, xdata=nominal_values(xg2links), ydata=nominal_values(glinks2))
+
+ax1[0].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt1[0],popt1[1]), 'purple', label='Fit für g bei linker konfig')
+ax1[1].plot(np.linspace(-6,0,100),func(np.linspace(-6,0,100), popt2[0],popt2[1]), 'g', label='Fit für g` bei linker konfig')
+
+ax2[0].errorbar(
+    nominal_values(xg1rechts),
+    nominal_values(grechts1),
+    std_devs(xg1rechts),
+    std_devs(grechts1),
+    marker='.',
+    markerfacecolor = 'pink',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label = 'Messung bei 1V',  # Name in der Legende
+)
+
+ax2[1].errorbar(
+    nominal_values(xg2rechts),
+    nominal_values(grechts2),
+    std_devs(xg2rechts),
+    std_devs(grechts2),
+    marker='.',
+    markerfacecolor = 'cyan',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label = 'Messung bei 1V',  # Name in der Legende
+)
+
+popt3, pcov3 = curve_fit(func, xdata=nominal_values(xg1rechts), ydata=nominal_values(grechts1))
+popt4, pcov4 = curve_fit(func, xdata=nominal_values(xg2rechts), ydata=nominal_values(grechts2))
+
+ax2[0].plot(np.linspace(-150,0,100),func(np.linspace(-150,0,100), popt3[0],popt3[1]), 'purple', label='Fit für g bei linker konfig')
+ax2[1].plot(np.linspace(0.95,1,100),func(np.linspace(0.95,1,100), popt4[0],popt4[1]), 'g', label='Fit für g` bei linker konfig')
+
+
+
+print(popt1)
+print(np.sqrt(pcov1))
+print(popt2)
+print(np.sqrt(pcov2))
+
+
+plt.show()

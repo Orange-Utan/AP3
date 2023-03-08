@@ -38,9 +38,9 @@ u_bildGrRechts = uarray(bildGrRechts, ubildrechts/(2*np.sqrt(6))) #y'
 #g= u_gegen - u_linse
 #g'= u_schirm-u_linse
 
-glinks1 = -abs(u_gegen - u_links)
+glinks1 = abs(u_gegen - u_links)
 glinks2 = abs(u_schirm - u_links)
-grechts1 = -abs(u_gegen - u_rechts)
+grechts1 = abs(u_gegen - u_rechts)
 grechts2 = abs(u_schirm - u_rechts)
 
 betalinks = u_bildGrLinks/u_geGrLinks
@@ -68,7 +68,6 @@ ax1[0].errorbar(
     marker='.',
     markerfacecolor = 'pink',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label = 'Messung bei 1V',  # Name in der Legende
 )
 
 ax1[1].errorbar(
@@ -78,8 +77,7 @@ ax1[1].errorbar(
     std_devs(glinks2),
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
-    linestyle = '',  # keine Verbindungslinie
-    label = 'Messung bei 1V',  # Name in der Legende
+    linestyle = '',  # keine Verbindungslinie',  # Name in der Legende
 )
 
 popt1, pcov1 = curve_fit(func, xdata=nominal_values(xg1links), ydata=nominal_values(glinks1), p0=[0.09,-0.06] )
@@ -96,7 +94,6 @@ ax2[0].errorbar(
     marker='.',
     markerfacecolor = 'pink',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label = 'Messung bei 1V',  # Name in der Legende
 )
 
 ax2[1].errorbar(
@@ -107,7 +104,6 @@ ax2[1].errorbar(
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label = 'Messung bei 1V',  # Name in der Legende
 )
 
 popt3, pcov3 = curve_fit(func, xdata=nominal_values(xg1rechts), ydata=nominal_values(grechts1))
@@ -123,11 +119,13 @@ print(popt1)
 print(popt2)
 #print(np.sqrt(pcov2))
 print(popt3)
-print(np.sqrt(pcov3))
+#print(np.sqrt(pcov3))
 print(popt4)
-print(np.sqrt(pcov4))
+#print(np.sqrt(pcov4))
+
+fgemittelt = (-uarray(popt1[0],pcov1[0][0]**0.5)+uarray(popt2[0],pcov2[0][0]**0.5)+uarray(popt4[0],pcov4[0][0]**0.5))/3
+print('F:' + str(fgemittelt))
 
 
-
-
+plt.legend()
 plt.show()

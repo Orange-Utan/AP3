@@ -82,7 +82,7 @@ ax1[1].errorbar(
     label = 'Messung bei 1V',  # Name in der Legende
 )
 
-popt1, pcov1 = curve_fit(func, xdata=nominal_values(xg1links), ydata=nominal_values(glinks1))
+popt1, pcov1 = curve_fit(func, xdata=nominal_values(xg1links), ydata=nominal_values(glinks1), p0=[0.09,-0.06] )
 popt2, pcov2 = curve_fit(func, xdata=nominal_values(xg2links), ydata=nominal_values(glinks2))
 
 ax1[0].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt1[0],popt1[1]), 'purple', label='Fit für g bei linker konfig')
@@ -122,6 +122,12 @@ print(popt1)
 print(np.sqrt(pcov1))
 print(popt2)
 print(np.sqrt(pcov2))
+print(popt3)
+print(np.sqrt(pcov3))
+print(popt4)
+print(np.sqrt(pcov4))
+
+
 
 
 plt.show()

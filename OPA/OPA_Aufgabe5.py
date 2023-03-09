@@ -38,13 +38,13 @@ u_bildGrRechts = uarray(bildGrRechts, ubildrechts/(2*np.sqrt(6))) #y'
 #g= u_gegen - u_linse
 #g'= u_schirm-u_linse
 
-glinks1 = abs(u_gegen - u_links)
+glinks1 = -abs(u_gegen - u_links)
 glinks2 = abs(u_schirm - u_links)
-grechts1 = abs(u_gegen - u_rechts)
+grechts1 = -abs(u_gegen - u_rechts)
 grechts2 = abs(u_schirm - u_rechts)
 
-betalinks = u_bildGrLinks/u_geGrLinks
-betarechts = u_bildGrRechts/u_geGrRechts
+betalinks = -u_bildGrLinks/u_geGrLinks
+betarechts = -u_bildGrRechts/u_geGrRechts
 
 xg1links = 1-1/betalinks
 xg2links = 1-betalinks

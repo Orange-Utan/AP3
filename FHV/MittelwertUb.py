@@ -23,6 +23,9 @@ delta.append(u_SpannungBeschlMinQ[2]-u_SpannungBeschlMinQ[1])
 
 m = (delta[0]+delta[1]+delta[2]+delta[3])/4
 
+print(u_SpannungBeschlMaxQ)
+print(u_SpannungBeschlMinQ)
+print(delta)
 print(m)
 
 #####################################################
@@ -42,7 +45,9 @@ delta.append(u_SpannungBeschlMinN[2]-u_SpannungBeschlMinN[1])
 
 m1 = (delta[0]+delta[1]+delta[2]+delta[3]+delta[4])/5
 
-print(m)
+print(u_SpannungBeschlMaxN)
+print(u_SpannungBeschlMinN)
+print(m1)
 
 h= 4.136e-15
 c = 2.9979e8

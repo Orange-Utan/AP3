@@ -21,3 +21,16 @@ h = ufloat(3.3, 0.6)/100
 f2strich = (t-f1strich)/(-f1strich/fges+1)
 print(f2strich*100)
 
+
+#Abbe
+
+
+f1strich = (ufloat(7.49,0.019)/100+ufloat(7.26,0.033)/100)/2
+print(f1strich)
+fges = (ufloat(9.6,2.3)/100+ufloat(14.8,1.8)/100)/2
+print(fges)
+t = 3/100
+#h = (ufloat(27.9,1.8)/100-ufloat(26.8,6.9)/100)/2
+
+f2strich = (t-f1strich)/(-f1strich/fges+1)
+print(f2strich*100)

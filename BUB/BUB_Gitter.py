@@ -14,17 +14,17 @@ import uncertainties.umath as umath
 
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
-gitterpos = ufloat(10,0.05)
 gitterdick = ufloat(0.5,0.05)
-schirmpos = uarray([50,70,90],0.05)
+gitterpos = ufloat(10,0.05)-0.5*gitterdick
 schirmdick = ufloat(1.6,0.05)
+schirmpos = uarray([50,70,90],0.05)-0.5*schirmdick
 
 l=[1,2,3]
 for i in range(3):
-    l[i]= schirmpos[i]+0.5*schirmdick-(gitterpos-0.5*gitterdick)
+    l[i]= schirmpos[i]-gitterpos
 print(l)
 l1 = ufloat(41.05,0.07905694150420949)
-l2=ufloat(61.05,0.07905694150420949)
+l2 = ufloat(61.05,0.07905694150420949)
 l3 = ufloat(81.05,0.07905694150420949)
 
 #Unsicherheiten zeichnen 0,05mm  messen 0,05cm
@@ -54,8 +54,8 @@ l3_g_rechts = uarray([4.45, 8.9, 13.5],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**
 l3_g = uarray([-13.3 ,-8.85 , -4.45 ,0.0, 4.45, 8.9, 13.5],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
 
 
-l1_b_links= uarray(np.flip([0.0, -1.8, -3.65, -5.475, -7.35, -9.35, -11.275]),(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
-l1_b_links = uarray([1.85, 3.675, 5.55, 7.25, 9.25, 11.175],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
+l1_b_links = uarray(np.flip([0.0, -1.8, -3.65, -5.475, -7.35, -9.35, -11.275]),(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
+l1_b_rechts = uarray([1.85, 3.675, 5.55, 7.25, 9.25, 11.175],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
 l1_b = uarray([-11.275 , -9.35  , -7.35  , -5.475,  -3.65  , -1.8    , 0.0 ,1.85, 3.675, 5.55, 7.25, 9.25, 11.175],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
 
 
@@ -74,8 +74,8 @@ fig, ax1 = plt.subplots()
 def func1(s,l):
     return unumpy.sin(unumpy.arctan(s/l))
 
-def funcfit(x,a,b):
-    return a*x + b
+def funcfit(x,a):
+    return a*x
 #print(func1(l1_o,l1))
 
 
@@ -86,7 +86,7 @@ ax1.errorbar(
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label='l1')
+    label=r'Messung bei Länge 1 = $(41,05 \pm 0,079)\,cm$')
 
 ax1.errorbar(
     [-5,-4,-3,-2,-1,0,1,2,3,4,5],
@@ -95,7 +95,7 @@ ax1.errorbar(
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label='l2')
+    label='Messung bei Länge 3 = $(61,05 \pm 0,079)\,cm$')
 
 ax1.errorbar(
     [-3,-2,-1,0,1,2,3],
@@ -104,19 +104,22 @@ ax1.errorbar(
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label='l3')
+    label='Messung bei Länge 1 = $(81,05 \pm 0,079)\,cm$')
 
 #mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
 
 popto, pcovo = curve_fit(funcfit, xdata=[-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6], ydata=nominal_values(func1(l1_o,l1)))
-ax1.plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0],popto[1]), 'orange', label='Fit, Orange Welle')
+ax1.plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0]), 'orange', label='Fit, Orange Wellenlänge')
 print(popto)
 
+ax1.xaxis.set_major_locator(MultipleLocator(5))
+ax1.xaxis.set_minor_locator(MultipleLocator(1))
+ax1.grid(which='minor', color='#CCCCCC', linestyle=':')
+ax1.grid(which='major', color='#CCCCCC', linestyle=':')
+ax1.set_xlabel("Ordnung des Minimum")
+ax1.set_ylabel(r"$\frac{s}{l}$")
 
-
-
-fig, ax2 =plt.subplots()
-
+#print(0.05841954*10*1000)
 
 plt.legend()
 plt.show()

@@ -74,20 +74,51 @@ fig, ax1 = plt.subplots()
 def func1(s,l):
     return unumpy.sin(unumpy.arctan(s/l))
 
-print(func1(l1_o,l1))
+def funcfit(x,a,b):
+    return a*x + b
+#print(func1(l1_o,l1))
 
 
 ax1.errorbar(
-    np.linspace(-6,6,1),
+    [-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6],
     nominal_values(func1(l1_o,l1)),
     yerr=std_devs(func1(l1_o,l1)),
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
-    label=r'Messwerte, rechte Konfiguration')
+    label='l1')
+
+ax1.errorbar(
+    [-5,-4,-3,-2,-1,0,1,2,3,4,5],
+    nominal_values(func1(l2_o,l2)),
+    yerr=std_devs(func1(l2_o,l2)),
+    marker='.',
+    markerfacecolor = 'cyan',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label='l2')
+
+ax1.errorbar(
+    [-3,-2,-1,0,1,2,3],
+    nominal_values(func1(l3_o,l3)),
+    yerr=std_devs(func1(l3_o,l3)),
+    marker='.',
+    markerfacecolor = 'cyan',  # gef¨ullter Punkt
+    linestyle = '',  # keine Verbindungslinie
+    label='l3')
+
+#mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
+
+popto, pcovo = curve_fit(funcfit, xdata=[-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6], ydata=nominal_values(func1(l1_o,l1)))
+ax1.plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0],popto[1]), 'orange', label='Fit, Orange Welle')
+print(popto)
 
 
 
+
+fig, ax2 =plt.subplots()
+
+
+plt.legend()
 plt.show()
 
 

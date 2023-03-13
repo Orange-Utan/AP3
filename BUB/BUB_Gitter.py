@@ -12,6 +12,16 @@ from uncertainties import ufloat
 from uncertainties import unumpy as unp
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
+gitterpos = ufloat(10,0.05)
+gitterdick = ufloat(0.5,0.05)
+schirmpos = uarray([50,70,90],0.05)
+schirmdick = ufloat(1.6,0.05)
+
+l=[1,2,3]
+for i in range(3):
+    l[i]= schirmpos[i]+0.5*schirmdick-(gitterpos-0.5*gitterdick)
+
+#Unsicherheiten zeichnen 0,05mm  messen 0,05cm
 
 l1_o_links = uarray([0.0, -2.36, -4.875, -7.3, -9.83, -12.525, -15.33],)
 l1_o_rechts = uarray([0.0, 2.4, 4.81, 7.225, 9.73, 12.3, 15.8],)

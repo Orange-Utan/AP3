@@ -14,12 +14,15 @@ from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
 #Ungenau: Messkala 0,5 mm Messschieber: 0,25mm
 gegenstand = 13/100
+
 schirm = np.array([140.0, 135.0, 130.0, 125.0, 120.0, 115.0, 110.0, 105.0, 100.0, 95.0, 90.0])/100
 geggroesselinks = 5/1000
 bildGrLinks = np.array([30.5, 30.0, 29.0, 25.0, 22.5, 25.0, 23.0, 23.0, 20.0, 18.0, 12.0])/1000
 ubildlinks = np.array([5.0, 5.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 3.0, 3.0, 3.0])/1000
 links = np.array([32.5, 32.2, 33.4, 32.7, 33.2, 33.5, 33.5, 33.05, 34.5, 34.5, 34.8])/100
 ulinks = np.array([9,8.5,8,7.5,7.5,7,6.5,6,5.5,5,4.5])/1000
+
+
 rechts= np.array([128.4, 122.6, 117.6, 112.5, 107.4, 102.0, 96.9, 91.8, 86.1, 79.9, 75.4])/100
 urechts = np.array([6,5.5,5,4.5,4,4.5,5,5.5,6,6,6])/1000
 geggroesserechts = 25/1000
@@ -55,7 +58,7 @@ def func(x,f,h):
     return f*x+h
 
 
-fig1, ax1 =plt.subplots(1,2)
+fig1, ax1 = plt.subplots(1,2)
 fig2, ax2 = plt.subplots(1,2)
 
 
@@ -63,54 +66,60 @@ fig2, ax2 = plt.subplots(1,2)
 ax1[0].errorbar(
     nominal_values(xg1links),
     nominal_values(glinks1),
-    std_devs(xg1links),
-    std_devs(glinks1),
+    xerr=std_devs(xg1links),
+    yerr=std_devs(glinks1),
     marker='.',
     markerfacecolor = 'pink',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
+    label= r'Messwerte, linke Konfiguration'
 )
 
 ax1[1].errorbar(
     nominal_values(xg2links),
     nominal_values(glinks2),
-    std_devs(xg2links),
-    std_devs(glinks2),
+    xerr=std_devs(xg2links),
+    yerr=std_devs(glinks2),
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie',  # Name in der Legende
+    label=r'Messwerte, linke Konfiguration'
 )
 
 popt1, pcov1 = curve_fit(func, xdata=nominal_values(xg1links), ydata=nominal_values(glinks1), p0=[0.09,-0.06] )
 popt2, pcov2 = curve_fit(func, xdata=nominal_values(xg2links), ydata=nominal_values(glinks2))
 
-ax1[0].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt1[0],popt1[1]), 'purple', label='Fit für g bei linker konfig')
-ax1[1].plot(np.linspace(-6,0,100),func(np.linspace(-6,0,100), popt2[0],popt2[1]), 'g', label='Fit für g` bei linker konfig')
+ax1[0].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt1[0],popt1[1]), 'purple', label='Fit, linke Konfiguration')
+ax1[1].plot(np.linspace(-6,0,100),func(np.linspace(-6,0,100), popt2[0],popt2[1]), 'g', label='Fit, linke Konfiguration')
 
 ax2[0].errorbar(
     nominal_values(xg1rechts),
     nominal_values(grechts1),
-    std_devs(xg1rechts),
-    std_devs(grechts1),
+    xerr=std_devs(xg1rechts),
+    yerr=std_devs(grechts1),
     marker='.',
     markerfacecolor = 'pink',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
+    label=r'Messwerte, rechte Konfiguration'
+
 )
 
 ax2[1].errorbar(
     nominal_values(xg2rechts),
     nominal_values(grechts2),
-    std_devs(xg2rechts),
-    std_devs(grechts2),
+    xerr=std_devs(xg2rechts),
+    yerr=std_devs(grechts2),
     marker='.',
     markerfacecolor = 'cyan',  # gef¨ullter Punkt
     linestyle = '',  # keine Verbindungslinie
+    label=r'Messwerte, rechte Konfiguration'
+
 )
 
 popt3, pcov3 = curve_fit(func, xdata=nominal_values(xg1rechts), ydata=nominal_values(grechts1))
 popt4, pcov4 = curve_fit(func, xdata=nominal_values(xg2rechts), ydata=nominal_values(grechts2))
 
-ax2[0].plot(np.linspace(-10,0,100),func(np.linspace(-10,0,100), popt3[0],popt3[1]), 'purple', label='Fit für g bei linker konfig')
-ax2[1].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt4[0],popt4[1]), 'g', label='Fit für g` bei linker konfig')
+ax2[0].plot(np.linspace(-10,0,100),func(np.linspace(-10,0,100), popt3[0],popt3[1]), 'purple', label='Fit, rechte Konfiguration')
+ax2[1].plot(np.linspace(0,1,100),func(np.linspace(0,1,100), popt4[0],popt4[1]), 'g', label='Fit, rechte Konfiguration')
 
 
 
@@ -127,5 +136,19 @@ fgemittelt = (-uarray(popt1[0],pcov1[0][0]**0.5)+uarray(popt2[0],pcov2[0][0]**0.
 print('F:' + str(fgemittelt))
 
 
-plt.legend()
+ax1[0].set_xlabel(r"$1 - \beta$")
+ax1[0].set_ylabel(r"$g$")
+ax1[0].legend()
+
+ax1[1].set_xlabel(r"$1 - \frac{1}{\beta}$")
+ax1[1].set_ylabel(r"$g'$")
+ax1[1].legend()
+
+ax2[0].set_xlabel(r"$1 - \beta$")
+ax2[0].set_ylabel(r"$g$")
+ax2[0].legend()
+
+ax2[1].set_xlabel(r"$1 - \frac{1}{\beta}$")
+ax2[1].set_ylabel(r"$g'$")
+ax2[1].legend()
 plt.show()

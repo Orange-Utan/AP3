@@ -99,8 +99,9 @@ def func(x,a):
 popt3, pcov3 = curve_fit(func, xdata=ordnung_3, ydata=nominal_values(tanAlphaMean))
 ax.plot(np.linspace(-10,10,100),func(np.linspace(-10,10,100),popt3[0]),
         'green',
-        label='Ausgleichsgerade, Steigung m = ' + str)
-
+        label='Ausgleichsgerade, Steigung m = 0,0043(14)')
+print(np.sqrt(pcov3))
+print(popt3)
 
 ax.xaxis.set_major_locator(MultipleLocator(5))
 ax.xaxis.set_minor_locator(MultipleLocator(1))
@@ -110,3 +111,5 @@ ax.set_xlabel("Ordnung des Minimum")
 ax.set_ylabel(r"$\frac{s}{l}$")
 plt.legend()
 plt.show()
+
+

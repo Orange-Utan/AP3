@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('BUB/BUB - Tabellenblatt2.csv', "r"))
+cr = csv.reader(open('BUB/BUB - Tabellenblatt1.csv', "r"))
 outputArray = []
 oA = []
 
@@ -13,10 +13,10 @@ for row in cr:
 
 
 
-startAtLine =26
-spalte = 1
-spalte_end = 2
-endAtLine =34
+startAtLine =20
+spalte = 7
+spalte_end = 8
+endAtLine =24
 
 
 

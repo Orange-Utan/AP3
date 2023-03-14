@@ -26,11 +26,11 @@ Blau (133, 3 ± 0, 01) (184, 0 ± 0, 01)
 Energiesparlampe Rot (358, 0 ± 0, 01) (310, 0 ± 0, 01)
 Energiesparlampe Grün (357, 8 ± 0, 01) (309, 2 ± 0, 01)"""
 
-orange = ufloat(184.0,0.01)-ufloat(135.2,0.01)
-grün = ufloat(184.0,0.01)-ufloat(135.0,0.01)
-blau = ufloat(184.0,0.01) -ufloat(133.3,0.01)
-e_rot = ufloat(358.0,0.01) -ufloat(310.0,0.01)
-e_grün = ufloat(357.8,0.01) - ufloat(309.2,0.01)
+orange = (ufloat(184.0,0.01)-ufloat(135.2,0.01))*2*np.pi/360
+grün = (ufloat(184.0,0.01)-ufloat(135.0,0.01))*2*np.pi/360
+blau = (ufloat(184.0,0.01) -ufloat(133.3,0.01))*2*np.pi/360
+e_rot =( ufloat(358.0,0.01) -ufloat(310.0,0.01))*2*np.pi/360
+e_grün = (ufloat(357.8,0.01) - ufloat(309.2,0.01))*2*np.pi/360
 
 """print(orange)
 print(grün)
@@ -45,7 +45,7 @@ print(alpha/2)"""
 
 
 def n(delta):
-    epsilon = ufloat(59.8,0.007)
+    epsilon = ufloat(59.8,0.007)*2*np.pi/360
     return unumpy.sin((delta+epsilon)/2)/unumpy.sin(epsilon/2)
 
 
@@ -55,4 +55,7 @@ print(n(grün))
 print(n(blau))
 print(n(e_rot))
 print(n(e_grün))
+
+literatur = uarray([579.07,546.07, 435.83],0 )
+n_lamda = uarray([nominal_values(n(orange)),nominal_values(n(grün)),nominal_values(n(blau))],[std_devs(n(orange)),std_devs(n(grün)),std_devs(n(blau))])
 

@@ -126,6 +126,8 @@ def plotOrange():
     ax1[0].plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0], popto[1]), 'orange', label=r'Fit, Orange Wellenlänge')
     print(popto)
     print(np.sqrt(pcovo))
+    m = ufloat(popto[0], (pcovo[1][1])**0.5)
+    print(m * ufloat(10, 0.02)*1000)
 plotOrange()
 
 def plotGreen():
@@ -162,6 +164,8 @@ def plotGreen():
                 label='Fit, Grüne Wellenlänge')
     print(poptg)
     print(np.sqrt(pcovg))
+    m = ufloat(poptg[0], (pcovg[1][1])**0.5)
+    print(m * ufloat(10, 0.02))
 plotGreen()
 
 def plotBlue():
@@ -198,6 +202,8 @@ def plotBlue():
                 label='Fit, Blaue Wellenlänge')
     print(poptg)
     print(np.sqrt(pcovg))
+    m = ufloat(poptg[0], (pcovg[1][1])**0.5)
+    print(m*ufloat(10,0.02))
 plotBlue()
 
 
@@ -214,6 +220,7 @@ ax1[2].set_title('Blaue Wellenlänge')
 ax1[0].set_ylabel(r"sin(arctan($\frac{s}{l}$))")
 
 #print(0.05841954*10*1000)
+print(10*0.2/100)
 
 
 plt.show()

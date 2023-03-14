@@ -59,3 +59,34 @@ print(n(e_grün))
 literatur = uarray([579.07,546.07, 435.83],0 )
 n_lamda = uarray([nominal_values(n(orange)),nominal_values(n(grün)),nominal_values(n(blau))],[std_devs(n(orange)),std_devs(n(grün)),std_devs(n(blau))])
 
+
+fig, ax = plt.subplots()
+
+
+ax.errorbar(
+        nominal_values(literatur),
+        nominal_values(n_lamda),
+        label = r'n aufgetragen gegen $\lambda$',
+        color = 'purple',
+        linestyle='',
+        marker='.',
+        capsize=1.5,
+        #elinewidth=1.2,
+        #xerr=std_devs(P_List),
+        yerr=std_devs(n_lamda)
+        )
+ax.set_xlabel("Wellenlänge in nm")
+ax.set_ylabel("n($\lambda$)")
+
+def fit(x,a,b):
+    return a*x+b
+
+
+popt, pcov = curve_fit(fit, xdata=nominal_values(literatur), ydata=nominal_values(n_lamda))
+ax.plot(np.linspace(390,650,1000),fit(np.linspace(390,650,1000),popt[0],popt[1]),
+        'green',
+        label='Ausgleichsgerade, $n(\lambda)=-1,39\cdot10^{-4}\cdot \lambda+1,71$')
+print(np.sqrt(pcov))
+print(popt)
+plt.legend()
+plt.show()

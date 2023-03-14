@@ -67,61 +67,157 @@ l3_b_links= uarray(np.flip([0.0, -3.5, -7.0, -10.8, -14.3]),(((0.05)/2/6**0.5)**
 l3_b_rechts = uarray([3.65, 7.25, 10.8, 14.4],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
 l3_b = uarray([-14.3 ,-10.8 , -7.0   ,-3.5  , 0.0,3.65, 7.25, 10.8, 14.4],(((0.05)/2/6**0.5)**2+((0.05)/2/6**0.5)**2)**0.5)
 
+
+
 #n*lamda = a*sinA, s/l = tanA ---> n*lamda= sin(arctan(s/l)
 
-fig, ax1 = plt.subplots()
+fig, ax1 = plt.subplots(1,3)
 
 def func1(s,l):
     return unumpy.sin(unumpy.arctan(s/l))
 
-def funcfit(x,a):
-    return a*x
-#print(func1(l1_o,l1))
+def funcfit(x,a, b):
+    return a*x + b
 
 
-ax1.errorbar(
-    [-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6],
-    nominal_values(func1(l1_o,l1)),
-    yerr=std_devs(func1(l1_o,l1)),
-    marker='.',
-    markerfacecolor = 'cyan',  # gef¨ullter Punkt
-    linestyle = '',  # keine Verbindungslinie
-    label=r'Messung bei Länge 1 = $(41,05 \pm 0,079)\,cm$')
+"""def createAvg():
+    avg_g = uarray([],[])
+    avg_g.append(func1(l1_g[0],l1))
+    avg_g.append((func1(l1_g[1],l1)+func1(l2_g[0],l2))/2)
+    avg_g.append((func1(l1_g[2],l1) + func1(l2_g[1],l2)) / 2)
+    for i in range(0,7):
+        avg_g.append((func1(l1_g[3+i],l1) + func1(l2_g[2+i],l2) + func1(l3_g[i],l3)) / 3)
+        #print(i)
+    avg_g.append((func1(l1_g[3+7+1],l1) + func1(l2_g[2+7+1],l2)) / 2)
+    avg_g.append(func1(l1_g[3 + 7 + 2],l1))
+    return avg_g
+avge_g = createAvg()
+print(avge_g)"""
 
-ax1.errorbar(
-    [-5,-4,-3,-2,-1,0,1,2,3,4,5],
-    nominal_values(func1(l2_o,l2)),
-    yerr=std_devs(func1(l2_o,l2)),
-    marker='.',
-    markerfacecolor = 'cyan',  # gef¨ullter Punkt
-    linestyle = '',  # keine Verbindungslinie
-    label='Messung bei Länge 3 = $(61,05 \pm 0,079)\,cm$')
+def plotOrange():
+    ax1[0].errorbar(
+        [-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6],
+        nominal_values(func1(l1_o,l1)),
+        yerr=std_devs(func1(l1_o,l1)),
+        marker='.',
+        markerfacecolor = 'cyan',  # gef¨ullter Punkt
+        linestyle = '',  # keine Verbindungslinie
+        label=r'Messung bei Länge 1 = $(41,05 \pm 0,08)\,cm$')
+    ax1[0].errorbar(
+        [-5,-4,-3,-2,-1,0,1,2,3,4,5],
+        nominal_values(func1(l2_o,l2)),
+        yerr=std_devs(func1(l2_o,l2)),
+        marker='.',
+        markerfacecolor = 'blue',  # gef¨ullter Punkt
+        linestyle = '',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(61,05 \pm 0,08)\,cm$')
+    ax1[0].errorbar(
+        [-3,-2,-1,0,1,2,3],
+        nominal_values(func1(l3_o,l3)),
+        yerr=std_devs(func1(l3_o,l3)),
+        marker='.',
+        markerfacecolor = 'purple',  # gef¨ullter Punkt
+        linestyle = '',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(81,05 \pm 0,08)\,cm$')
 
-ax1.errorbar(
-    [-3,-2,-1,0,1,2,3],
-    nominal_values(func1(l3_o,l3)),
-    yerr=std_devs(func1(l3_o,l3)),
-    marker='.',
-    markerfacecolor = 'cyan',  # gef¨ullter Punkt
-    linestyle = '',  # keine Verbindungslinie
-    label='Messung bei Länge 1 = $(81,05 \pm 0,079)\,cm$')
+    #mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
 
-#mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
+    popto, pcovo = curve_fit(funcfit, xdata=[-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6], ydata=nominal_values(func1(l1_o,l1)))
+    ax1[0].plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0], popto[1]), 'orange', label=r'Fit, Orange Wellenlänge')
+    print(popto)
+    print(np.sqrt(pcovo))
+plotOrange()
 
-popto, pcovo = curve_fit(funcfit, xdata=[-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6], ydata=nominal_values(func1(l1_o,l1)))
-ax1.plot(np.linspace(-6,6,100),funcfit(np.linspace(-6,6,100), popto[0]), 'orange', label='Fit, Orange Wellenlänge')
-print(popto)
+def plotGreen():
+    ax1[1].errorbar(
+        [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6],
+        nominal_values(func1(l1_g, l1)),
+        yerr=std_devs(func1(l1_g, l1)),
+        marker='.',
+        markerfacecolor='cyan',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label=r'Messung bei Länge 1 = $(41,05 \pm 0,08)\,cm$')
+    ax1[1].errorbar(
+        [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+        nominal_values(func1(l2_g, l2)),
+        yerr=std_devs(func1(l2_g, l2)),
+        marker='.',
+        markerfacecolor='blue',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(61,05 \pm 0,08)\,cm$')
+    ax1[1].errorbar(
+        [-3, -2, -1, 0, 1, 2, 3],
+        nominal_values(func1(l3_g, l3)),
+        yerr=std_devs(func1(l3_g, l3)),
+        marker='.',
+        markerfacecolor='purple',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(81,05 \pm 0,08)\,cm$')
 
-ax1.xaxis.set_major_locator(MultipleLocator(5))
-ax1.xaxis.set_minor_locator(MultipleLocator(1))
-ax1.grid(which='minor', color='#CCCCCC', linestyle=':')
-ax1.grid(which='major', color='#CCCCCC', linestyle=':')
-ax1.set_xlabel("Ordnung des Minimum")
-ax1.set_ylabel(r"$\frac{s}{l}$")
+    # mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
+
+    poptg, pcovg = curve_fit(funcfit, xdata=[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6],
+                             ydata=nominal_values(func1(l1_g,l1)))
+    ax1[1].plot(np.linspace(-6, 6, 100), funcfit(np.linspace(-6, 6, 100), poptg[0], poptg[1]), 'green',
+                label='Fit, Grüne Wellenlänge')
+    print(poptg)
+    print(np.sqrt(pcovg))
+plotGreen()
+
+def plotBlue():
+    ax1[2].errorbar(
+        [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6],
+        nominal_values(func1(l1_b, l1)),
+        yerr=std_devs(func1(l1_b, l1)),
+        marker='.',
+        markerfacecolor='cyan',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label=r'Messung bei Länge 1 = $(41,05 \pm 0,08)\,cm$')
+    ax1[2].errorbar(
+        [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+        nominal_values(func1(l2_b, l2)),
+        yerr=std_devs(func1(l2_b, l2)),
+        marker='.',
+        markerfacecolor='blue',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(61,05 \pm 0,08)\,cm$')
+    ax1[2].errorbar(
+        [-4, -3, -2, -1, 0, 1, 2, 3, 4],
+        nominal_values(func1(l3_b, l3)),
+        yerr=std_devs(func1(l3_b, l3)),
+        marker='.',
+        markerfacecolor='purple',  # gef¨ullter Punkt
+        linestyle='',  # keine Verbindungslinie
+        label='Messung bei Länge 3 = $(81,05 \pm 0,08)\,cm$')
+
+    # mittel_o_func = (func1(l1_o,l1)+func1(l2_o,l2)+func1(l3_o,l3))/3
+
+    poptg, pcovg = curve_fit(funcfit, xdata=[-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6],
+                             ydata=nominal_values(func1(l1_b,l1)))
+    ax1[2].plot(np.linspace(-6, 6, 100), funcfit(np.linspace(-6, 6, 100), poptg[0], poptg[1]), 'blue',
+                label='Fit, Blaue Wellenlänge')
+    print(poptg)
+    print(np.sqrt(pcovg))
+plotBlue()
+
+
+for i in range(0,3):
+    ax1[i].xaxis.set_major_locator(MultipleLocator(5))
+    ax1[i].xaxis.set_minor_locator(MultipleLocator(1))
+    ax1[i].grid(which='minor', color='#CCCCCC', linestyle=':')
+    ax1[i].grid(which='major', color='#CCCCCC', linestyle=':')
+    ax1[i].set_xlabel("Ordnung des Maximum")
+    ax1[i].legend()
+ax1[0].set_title('Orange Wellenlänge')
+ax1[1].set_title('Grüne Wellenlänge')
+ax1[2].set_title('Blaue Wellenlänge')
+ax1[0].set_ylabel(r"sin(arctan($\frac{s}{l}$))")
 
 #print(0.05841954*10*1000)
 
-plt.legend()
+
 plt.show()
+
+
 
 

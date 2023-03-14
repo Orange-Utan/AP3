@@ -165,7 +165,7 @@ def plotGreen():
     print(poptg)
     print(np.sqrt(pcovg))
     m = ufloat(poptg[0], (pcovg[1][1])**0.5)
-    print(m * ufloat(10, 0.02))
+    print(m * ufloat(10, 0.02)*1000)
 plotGreen()
 
 def plotBlue():
@@ -203,7 +203,7 @@ def plotBlue():
     print(poptg)
     print(np.sqrt(pcovg))
     m = ufloat(poptg[0], (pcovg[1][1])**0.5)
-    print(m*ufloat(10,0.02))
+    print(m*ufloat(10,0.02)*1000)
 plotBlue()
 
 

@@ -32,13 +32,27 @@ blau = ufloat(184.0,0.01) -ufloat(133.3,0.01)
 e_rot = ufloat(358.0,0.01) -ufloat(310.0,0.01)
 e_grün = ufloat(357.8,0.01) - ufloat(309.2,0.01)
 
-print(orange)
+"""print(orange)
 print(grün)
 print(blau)
 print(e_rot)
-print(e_grün)
+print(e_grün)"""
 
 """print(gamma1)
 print(gamma2)
 print(alpha)
 print(alpha/2)"""
+
+
+def n(delta):
+    epsilon = ufloat(59.8,0.007)
+    return unumpy.sin((delta+epsilon)/2)/unumpy.sin(epsilon/2)
+
+
+
+print(n(orange))
+print(n(grün))
+print(n(blau))
+print(n(e_rot))
+print(n(e_grün))
+

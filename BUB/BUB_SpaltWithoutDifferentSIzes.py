@@ -103,6 +103,12 @@ ax.plot(np.linspace(-10,10,100),func(np.linspace(-10,10,100),popt3[0]),
 print(np.sqrt(pcov3))
 print(popt3)
 
+
+m = ufloat(0.0043, 0.000014)
+lam = ufloat(532,1)*10**-9
+
+print(lam/m*1000*1000)
+
 ax.xaxis.set_major_locator(MultipleLocator(5))
 ax.xaxis.set_minor_locator(MultipleLocator(1))
 ax.grid(which='minor', color='#CCCCCC', linestyle=':')

@@ -1,11 +1,11 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('XST/BUB - Tabellenblatt1.csv', "r"))
+cr = csv.reader(open('XST/AP3-XST - LiF_von0.1bis1mA.csv', "r"))
 outputArray = []
 oA = []
 
-arr = list(range(100))  # adjust to needed
+arr = list(range(500))  # adjust to needed
 x = 0
 for row in cr:
     arr[x] = row
@@ -13,10 +13,10 @@ for row in cr:
 
 
 
-startAtLine =20
-spalte = 7
-spalte_end = 8
-endAtLine =24
+startAtLine =61
+spalte = 0
+spalte_end = 91
+endAtLine =231
 
 
 

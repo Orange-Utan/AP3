@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('TestGetDAta.csv', "r"))
+cr = csv.reader(open('.csv', "r"))
 outputArray = []
 oA = []
 

@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('BUB/BUB - Tabellenblatt1.csv', "r"))
+cr = csv.reader(open('XST/BUB - Tabellenblatt1.csv', "r"))
 outputArray = []
 oA = []
 

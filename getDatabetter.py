@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('XST/AP3-XST - LiF_von0.1bis1mA.csv', "r"))
+cr = csv.reader(open('XST/NaCl_data.csv', "r"))
 outputArray = []
 oA = []
 
@@ -13,9 +13,9 @@ for row in cr:
 
 
 
-startAtLine =61
+startAtLine =1
 spalte = 0
-spalte_end = 91
+spalte_end = 5
 endAtLine =231
 
 

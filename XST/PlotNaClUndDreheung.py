@@ -69,4 +69,31 @@ ax[1].set_title('Vergrößert')
 ax[1].set_xlim(6,8)
 ax[0].set_xlim(2,11)
 
+ax[1].axvline(6.44, color='purple',linestyle='dashed')
+ax[1].text(6.35,1500,r'$K_\beta$ für 0°', rotation=90, color='purple')
+
+ax[1].axvline(6.52, color='orange',linestyle='dashed')
+ax[1].text(6.55,1250,r'$K_\beta$ für 180°', rotation=90, color='orange')
+
+ax[1].axvline(7.25, color='purple',linestyle='dashed')
+ax[1].text(7.16,500,r'$K_\alpha$ für 0°', rotation=90, color='purple')
+
+ax[1].axvline(7.33, color='orange',linestyle='dashed')
+ax[1].text(7.36,300,r'$K_\alpha$ für 180°', rotation=90, color='orange')
+
+mittelwertBeta = (ufloat(6.44,0.11)+ufloat(6.52,0.11))/2
+#mittelwertAlpha = (ufloat(7.25,0.11)+ufloat(7.33,0.11))/2
+mittelwertAlpha = ufloat(7.13,0.11)
+
+
+def K_winkel(gem_winkel, Ordnung):
+        a = 564.02*10**-12
+        d = 282.01*10**-12#a/2
+        return(2*d/Ordnung*unumpy.sin(gem_winkel*2*np.pi/360))
+
+
+
+print(K_winkel(mittelwertBeta,1)*10**12)
+print(K_winkel(mittelwertAlpha,1)*10**12)
+
 plt.show()

@@ -44,9 +44,19 @@ def weightedAverage(werte): # werte ist ein uarray
         u = u_ext
     return ufloat(nomWeighAvg,u)
 
-def ufloatToTexStr(ufloat):
-    tempStr= "$" + str(nominal_values(ufloat)) + r" \pm " + str(std_devs(ufloat)) + "$"
-    return tempStr.replace('.', ',')
+def ufloatToTexStr(uf):
+    ufloat = '{:.2u}'.format(uf)
+    ufloat = str(ufloat)
+    ufloat = ufloat.replace('+/-', ' \pm ')
+    ufloat = "$" + ufloat + "$"
+    print(ufloat)
+    if ufloat.__contains__('e'):
+        ufloat = ufloat.replace('e', '\cdot 10^{')
+        ufloat = ufloat.replace('+', '')
+        ufloat = ufloat + "}"
+    else:
+        ufloat = ufloat
+    return ufloat.replace('.', ',')
 def tabularXY():
     headers_temp = ["", r"$2 \cdot \beta$ 1.Ordnung", r"$2 \cdot \alpha$ 1.Ordnung", r"$2 \cdot \beta$ 2.Ordnung", r"$2 \cdot \alpha$ 2.Ordnung", r"$2 \cdot \beta$ 3.Ordnung", r"$2 \cdot \alpha$ 3.Ordnung"]
     headers = []
@@ -81,6 +91,6 @@ def tabularXY():
     print("}")
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")
-    print("\\end{table}[]")
+    print("\\end{table}")
 
 

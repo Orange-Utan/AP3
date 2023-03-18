@@ -128,13 +128,18 @@ def K_winkel(gem_winkel, Ordnung):
         d = 282.01*10**-12#a/2
         return(2*d/Ordnung*unumpy.sin(gem_winkel*2*np.pi/360))
 
+def E_winkel(gem_winkel, Ordnung):
+    h = 4.1357 * 10**-15 # in eV
+    c = 299792458
+    return h*c/K_winkel(gem_winkel, Ordnung)
+
 
 
 #print(K_winkel(mittelwertBeta,1)*10**12)
 #print(K_winkel(mittelwertAlpha,1)*10**12)
 
-def tabularXY():
-    headers_temp = ["", r"$2 \cdot \beta$ 1.Ordnung ($\si{\degree}$)", r"$2 \cdot \alpha$ 1.Ordnung ($\si{\degree}$)", r"$2 \cdot \beta$ 2.Ordnung ($\si{\degree}$)", r"$2 \cdot \alpha$ 2.Ordnung ($\si{\degree}$)", r"$2 \cdot \beta$ 3.Ordnung ($\si{\degree}$)", r"$2 \cdot \alpha$ 3.Ordnung ($\si{\degree}$)"]
+def tabularWinkel():
+    headers_temp = ["", r"$\beta$ 1.Ordnung ($\si{\degree}$)", r"$\alpha$ 1.Ordnung ($\si{\degree}$)", r"$\beta$ 2.Ordnung ($\si{\degree}$)", r"$\alpha$ 2.Ordnung ($\si{\degree}$)", r"$\beta$ 3.Ordnung ($\si{\degree}$)", r"$\alpha$ 3.Ordnung ($\si{\degree}$)"]
     headers = []
     for i in range(0, len(headers_temp)):
         headers.append("\\cellcolor[HTML]{C0C0C0}\\textbf{" + headers_temp[i] + "}")
@@ -165,11 +170,49 @@ def tabularXY():
     print("\\end{tabular}")
 
     print("}")
+    print("\\caption{Bestimmte Werte für $K_\\alpha$ und $K_\\beta$}")
+    print("\\label{tab:ErgebnisseKalphaE}")
+    print("\\end{table}")
+
+def tabularWelleEnergie():
+    headers_temp = ["", r"$K_\beta$ ($\si{pm}$)", r"$K_\alpha$ ($\si{pm}$)", r"$E_\beta$ ($\si{keV}$)", r"$E_\alpha$ ($\si{keV}$)"]
+    headers = []
+    for i in range(0, len(headers_temp)):
+        headers.append("\\cellcolor[HTML]{C0C0C0}\\textbf{" + headers_temp[i] + "}")
+    data = dict()
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "1.Ordnung" + "}"] = [gf.ufloatToTexStr(K_winkel(mittelwertBeta,1)*10**12),gf.ufloatToTexStr(K_winkel(mittelwertAlpha,1)*10**12),gf.ufloatToTexStr(E_winkel(mittelwertBeta,1)/1000),gf.ufloatToTexStr(E_winkel(mittelwertAlpha,1)/1000)]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "2.Ordnung" + "}"] = [gf.ufloatToTexStr(K_winkel(kBeta2O,2)*10**12),gf.ufloatToTexStr(K_winkel(kAlpha2O,2)*10**12),gf.ufloatToTexStr(E_winkel(kBeta2O,2)/1000),gf.ufloatToTexStr(E_winkel(kAlpha2O,2)/1000)]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "3.Ordnung" + "}"] = [gf.ufloatToTexStr(K_winkel(kBeta3O,3)*10**12),gf.ufloatToTexStr(K_winkel(kAlpha3O,3)*10**12),gf.ufloatToTexStr(E_winkel(kBeta3O,3)/1000),gf.ufloatToTexStr(E_winkel(kAlpha3O,3)/1000)]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "gewichteter Mittelwert" + "}"] = [gf.ufloatToTexStr(gf.weightedAverage(np.array([K_winkel(mittelwertBeta,1),K_winkel(kBeta2O,2),K_winkel(kBeta3O,3)]))*10**12),gf.ufloatToTexStr(gf.weightedAverage(np.array([K_winkel(mittelwertAlpha,1),K_winkel(kAlpha2O,2),K_winkel(kAlpha3O,3)]))*10**12),gf.ufloatToTexStr(gf.weightedAverage(np.array([E_winkel(mittelwertBeta,1),E_winkel(kBeta2O,2),E_winkel(kBeta3O,3)]))*10**-3),gf.ufloatToTexStr(gf.weightedAverage(np.array([E_winkel(mittelwertAlpha,1),E_winkel(kAlpha2O,2),E_winkel(kAlpha3O,3)]))/1000)]
+
+    textabular = f"|c|{'c|' * len(headers)}"
+    #texheader = " & " + " & ".join(headers) + "\\\\"
+    texheader = " & ".join(headers) + "\\\\"
+    #texdata = "\\hline\n"
+    texdata = ""
+    for label in sorted(data):
+        #if label == "z":
+        texdata += "\\hline\n"
+        texdata += f"{label} & {' & '.join(map(str, data[label]))} \\\\\n"
+
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+
+    print("}")
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")
-    print("\\end{table}[]")
+    print("\\end{table}")
 
-tabularXY()
+
+tabularWinkel()
 
 
 

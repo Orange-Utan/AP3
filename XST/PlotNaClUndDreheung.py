@@ -87,7 +87,9 @@ ax[1].text(7.36,300,r'$K_\alpha$ für 180°', rotation=90, color='orange')
 #mittelwertAlpha = ufloat(7.13,0.11)
 
 mittelwertBeta = gf.weightedAverage(uarray([6.44,6.52],0.11))
+mittelwertAlpha = gf.weightedAverage(uarray([7.25,7.33],0.11))
 print(mittelwertBeta)
+print(mittelwertAlpha)
 
 def K_winkel(gem_winkel, Ordnung):
         a = 564.02*10**-12
@@ -98,5 +100,43 @@ def K_winkel(gem_winkel, Ordnung):
 
 #print(K_winkel(mittelwertBeta,1)*10**12)
 #print(K_winkel(mittelwertAlpha,1)*10**12)
+
+def tabularXY():
+    headers_temp = ["", r"$2 \cdot \beta$ 1.Ordnung", r"$2 \cdot \alpha$ 1.Ordnung", r"$2 \cdot \beta$ 2.Ordnung", r"$2 \cdot \alpha$ 2.Ordnung", r"$2 \cdot \beta$ 3.Ordnung", r"$2 \cdot \alpha$ 3.Ordnung"]
+    headers = []
+    for i in range(0, len(headers_temp)):
+        headers.append("\\cellcolor[HTML]{C0C0C0}\\textbf{" + headers_temp[i] + "}")
+    data = dict()
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Linie für $0\,\si{\degree}$" + "}"] = [1, 2]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Linie für $180\,\si{\degree}$" + "}"] = [3, 2]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Mittelwert" + "}"] = [1, 9]
+
+    textabular = f"|c|{'c|' * len(headers)}"
+    #texheader = " & " + " & ".join(headers) + "\\\\"
+    texheader = " & ".join(headers) + "\\\\"
+    #texdata = "\\hline\n"
+    texdata = ""
+    for label in sorted(data):
+        #if label == "z":
+        texdata += "\\hline\n"
+        texdata += f"{label} & {' & '.join(map(str, data[label]))} \\\\\n"
+
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+
+    print("}")
+    print("\\caption{Berücksichtigte Ungenauigkeiten}")
+    print("\\label{tab:Ungenauigkeiten}")
+    print("\\end{table}[]")
+
+tabularXY()
 
 plt.show()

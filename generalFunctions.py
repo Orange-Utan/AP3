@@ -13,9 +13,9 @@ from uncertainties import unumpy as unp
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
 
-test = uarray([1,2,3],[0.1,0.2,0.3])
+#test = uarray([1,2,3],[0.1,0.2,0.3])
 
-def weightedAverage(werte):
+def weightedAverage(werte): # werte ist ein uarray
     # nominal value
     w = []
     for x in werte:
@@ -43,4 +43,44 @@ def weightedAverage(werte):
     else:
         u = u_ext
     return ufloat(nomWeighAvg,u)
+
+def ufloatToTexStr(ufloat):
+    tempStr= "$" + str(nominal_values(ufloat)) + r" \pm " + str(std_devs(ufloat)) + "$"
+    return tempStr.replace('.', ',')
+def tabularXY():
+    headers_temp = ["", r"$2 \cdot \beta$ 1.Ordnung", r"$2 \cdot \alpha$ 1.Ordnung", r"$2 \cdot \beta$ 2.Ordnung", r"$2 \cdot \alpha$ 2.Ordnung", r"$2 \cdot \beta$ 3.Ordnung", r"$2 \cdot \alpha$ 3.Ordnung"]
+    headers = []
+    for i in range(0, len(headers_temp)):
+        headers.append("\\cellcolor[HTML]{C0C0C0}\\textbf{" + headers_temp[i] + "}")
+    data = dict()
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Linie für $0\,\si{\degree}$" + "}"] = [1, 2]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Linie für $180\,\si{\degree}$" + "}"] = [3, 2]
+    data["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Mittelwert" + "}"] = [1, 9]
+
+    textabular = f"|c|{'c|' * len(headers)}"
+    #texheader = " & " + " & ".join(headers) + "\\\\"
+    texheader = " & ".join(headers) + "\\\\"
+    #texdata = "\\hline\n"
+    texdata = ""
+    for label in sorted(data):
+        #if label == "z":
+        texdata += "\\hline\n"
+        texdata += f"{label} & {' & '.join(map(str, data[label]))} \\\\\n"
+
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+
+    print("}")
+    print("\\caption{Berücksichtigte Ungenauigkeiten}")
+    print("\\label{tab:Ungenauigkeiten}")
+    print("\\end{table}[]")
+
 

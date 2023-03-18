@@ -12,13 +12,18 @@ from uncertainties import ufloat
 from uncertainties import unumpy as unp
 import uncertainties.umath as umath
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
+import  generalFunctions as gf
 
 
  # Unsicherheiten : 0,5mm maxima in mm , verzählt 5 maxima-5%, Luftwirbel 0,5%
 nmax = np.array([30,28,28.5,31])
 nmax_u = uarray(nmax,np.sqrt((0.5/2*np.sqrt(6))**2+(nmax*0.05)**2+(nmax*0.005)**2))
-lamda = ufloat(532,1)
+lamda = ufloat(532,1)/(10**(9))
 
 print(nmax_u)
 
+print(gf.weightedAverage(nmax_u))
 
+N= 50*100/gf.weightedAverage(nmax_u)
+print(N)
+print(N*lamda/2)

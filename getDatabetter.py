@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('XST/NaCl_data.csv', "r"))
+cr = csv.reader(open('INT/INT Tabelle - Druck.csv', "r"))
 outputArray = []
 oA = []
 
@@ -14,9 +14,9 @@ for row in cr:
 
 
 startAtLine =1
-spalte = 0
-spalte_end = 5
-endAtLine =231
+spalte = 3
+spalte_end = 3
+endAtLine =15
 
 
 

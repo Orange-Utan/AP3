@@ -91,9 +91,6 @@ def tabularXY():
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")
     print("\\end{table}")
-<<<<<<< Updated upstream
-tabularXY()
-=======
 
 def tabularX():
     spalte = dict()

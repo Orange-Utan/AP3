@@ -108,7 +108,6 @@ def tabularX():
         texdata += '\\hline'
         for label in sorted(spalte):
             texdata += str(spalte[label][i]) + ' & '
->>>>>>> Stashed changes
 
     print("\\begin{table}[]")
     print("\\centering")

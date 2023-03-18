@@ -96,7 +96,7 @@ def tabularX():
     spalte = dict()
     spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Header1" + "}"] = [1, 2]
     spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Header2" + "}"] = ['a', 'b']
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Header3" + "}"] = [1, 9]
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Header3" + "}"] = ['f', 9]
     textabular = f"|{'c|' * len(sorted(spalte))}"
     # texheader = " & " + " & ".join(headers) + "\\\\"
     # texheader = " & ".join(headers) + "\\\\"

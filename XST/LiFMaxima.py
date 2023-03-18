@@ -44,51 +44,11 @@ r9_u = uarray(r9,r9*0.05)
 
 r_u=[r0_u,r1_u,r2_u,r3_u,r4_u,r5_u,r6_u,r7_u,r8_u,r9_u]
 
-"""maxima = []
-rs = [r0,r1,r2,r3,r4,r5,r6,r7,r8,r9]
 
-for r in rs:
-        maxima.append(np.max(nominal_values(r)))
-
-print(maxima)"""
 maxima = uarray([373.3, 691.0, 975.3, 1294.3, 1566.8, 1778.3, 2015.5, 2261.3, 2505.3, 2678.5],np.array([373.3, 691.0, 975.3, 1294.3, 1566.8, 1778.3, 2015.5, 2261.3, 2505.3, 2678.5])*0.05)
 stromI = uarray(np.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])/1000,20*10**(-6))
 
-
-
-
-
-def netzabstand(K_winkel, winkel, ordnung):
-        return K_winkel*ordnung/2/unp.sin(winkel*2*np.pi/360)
-
-print(2*netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(6.48,0.08),1)*10**12)
-print(2*netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(7.29,0.08),1)*10**12)
-print(2*10**12*gf.weightedAverage(np.array([netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(6.48,0.08),1),netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(7.29,0.08),1)])))
-
-
 fig,ax =plt.subplots()
-for i in range(0,9):
-        ax.errorbar(
-                nominal_values(beta_u),
-                nominal_values(r_u[i]),
-                label = r'I = $'+ str(round((1+i)*0.1, 2)).replace('.',',') + r'\,$mA',
-                #color = 'purple',
-                #linestyle='',
-                marker='.',
-                #capsize=1.5,
-                elinewidth=0.5,
-                xerr=std_devs(beta_u),
-                yerr= std_devs(r_u[i])
-                )
-
-plt.legend()
-plt.show()
-
-
-
-
-
-'''fig,ax =plt.subplots()
 
 
 
@@ -120,5 +80,4 @@ ax.set_ylabel("Strom in mA")
 
 
 plt.legend()
-#plt.show()
-'''
+plt.show()

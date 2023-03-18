@@ -11,7 +11,8 @@ from uncertainties.unumpy import uarray, std_devs, nominal_values
 from uncertainties import ufloat
 from uncertainties import unumpy as unp
 import uncertainties.umath as umath
-
+import tabulate
+from tabulate import tabulate
 from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
 
@@ -68,6 +69,9 @@ ax.plot(np.linspace(300,2800,10000),fit(np.linspace(300,2800,10000),popt[0],popt
 
 ax.set_xlabel("Zählrate")
 ax.set_ylabel("Strom in mA")
+
+table = [maxima,stromI]
+print(tabulate(table, tablefmt="latex"))
 print(np.sqrt(pcov))
 print(popt)
 plt.legend()

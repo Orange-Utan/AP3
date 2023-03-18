@@ -53,29 +53,33 @@ fig,ax =plt.subplots()
 
 
 ax.errorbar(
-        nominal_values(maxima),
-        nominal_values(stromI)*1000,
-        label = r'Messungen bei Länge 1 = $(50,5 \pm 0,09)\,$cm',
+        y=nominal_values(maxima),
+        x=nominal_values(stromI)*1000,
+        #label = r'Messungen bei Länge 1 = $(50,5 \pm 0,09)\,$cm',
         color = 'purple',
         linestyle='',
         marker='.',
         capsize=1.5,
         #elinewidth=1.2,
-        yerr=std_devs(stromI),
-        xerr= std_devs(maxima)
+        xerr=std_devs(stromI),
+        yerr= std_devs(maxima)
         )
 
-def fit(x,a,b):
+def fit(I,r,t):
+    return r*I*np.exp(-r*t*I)
 
-        return a*x+b
 
-popt, pcov = curve_fit(fit, xdata=nominal_values(maxima), ydata=nominal_values(stromI)*1000)
-ax.plot(np.linspace(300,2800,10000),fit(np.linspace(300,2800,10000),popt[0],popt[1]),
+popt, pcov = curve_fit(fit, ydata=nominal_values(maxima), xdata=nominal_values(stromI)*1000)
+ax.plot(np.linspace(0,1,400),fit(np.linspace(0,1,400),popt[0],popt[1]),
         'green',
-        label='Zählrate aufgetragen gegen Strom, Fitkurve: Z=$3,88\cdot10^{-4}$I$-76,96\cdot10^{-3}$ ')
+        label=r'Zählrate aufgetragen gegen Strom, Fitkurve: $r = 3590 \pm 52,7, \tau = (81,83 \pm 4,036)\mu$s')
 
-ax.set_xlabel("Zählrate")
-ax.set_ylabel("Strom in mA")
+ax.set_ylabel("Zählrate")
+ax.set_xlabel("Strom in mA")
+
+print(popt[0])
+print(popt[1]*1000*1000)
+print(np.sqrt(pcov))
 
 
 

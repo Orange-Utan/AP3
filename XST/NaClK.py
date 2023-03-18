@@ -27,6 +27,10 @@ beta2bis10_u = uarray(beta2bis10, 0.05)
 betaFull_u = uarray(betaFull, 0.05)
 beta18bis21_u = uarray(beta18bis21, 0.05)
 
+zeroDegreeNaCl_u = uarray(zeroDegreeNaCl, np.array(zeroDegreeNaCl)*5/100)
+oneEightyNaCl_u = uarray(oneEightyNaCl, np.array(oneEightyNaCl)*5/100)
+NaCl18bis21_u = uarray(NaCl18bis21, np.array(NaCl18bis21)*5/100)
+
 fig, ax = plt.subplots()
 
 
@@ -40,8 +44,8 @@ ax.set_xlabel("Beta")
 ax.set_ylabel(r"Zählrate")
 
 ax.errorbar(
-        nominal_values(betaFull),
-        zeroDegreeNaCl,
+        nominal_values(betaFull_u),
+        nominal_values(zeroDegreeNaCl_u),
         label=r'NaCl Kristall 0° gedreht',
         color='purple',
         # linestyle='',
@@ -50,11 +54,11 @@ ax.errorbar(
         capsize=1.5,
         # elinewidth=1.2,
         xerr=std_devs(betaFull_u),
-        # yerr=std_devs(tanAlpha1)
+        yerr=std_devs(zeroDegreeNaCl_u)
 )
 ax.errorbar(
         nominal_values(beta2bis10_u),
-        oneEightyNaCl,
+        nominal_values(oneEightyNaCl_u),
         label=r'NaCl Kristall 180° gedreht',
         color='orange',
         # linestyle='',
@@ -63,11 +67,11 @@ ax.errorbar(
         capsize=1.5,
         # elinewidth=1.2,
         xerr=std_devs(beta2bis10_u),
-        # yerr=std_devs(tanAlpha1)
+        yerr=std_devs(oneEightyNaCl_u)
 )
 ax.errorbar(
         nominal_values(beta18bis21_u),
-        NaCl18bis21,
+        nominal_values(NaCl18bis21_u),
         label=r'NaCl Messung mit $\Delta t = 4s$',
         color='red',
         # linestyle='',
@@ -76,7 +80,7 @@ ax.errorbar(
         capsize=1.5,
         # elinewidth=1.2,
         xerr=std_devs(beta18bis21_u),
-        # yerr=std_devs(tanAlpha1)
+        yerr=std_devs(NaCl18bis21_u)
 )
 
 

@@ -25,6 +25,8 @@ oneEightyNaCl = [2.0, 5.0, 3.0, 8.0, 7.0, 5.0, 7.0, 5.0, 7.0, 9.0, 6.0, 12.0, 16
 beta2bis10_u = uarray(beta2bis10, 0.05)
 betaFull_u = uarray(betaFull, 0.05)
 
+
+
 fig, ax = plt.subplots(1,2)
 
 

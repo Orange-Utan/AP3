@@ -49,7 +49,6 @@ def ufloatToTexStr(uf):
     ufloat = str(ufloat)
     ufloat = ufloat.replace('+/-', ' \pm ')
     ufloat = "$" + ufloat + "$"
-    print(ufloat)
     if ufloat.__contains__('e'):
         ufloat = ufloat.replace('e', '\cdot 10^{')
         ufloat = ufloat.replace('+', '')

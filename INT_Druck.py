@@ -38,27 +38,23 @@ mittel = uarray(mittelnorm,mittelstd)
 
 
 def tabularX():
-    headers_temp = ["Maxima","Messung 1", "Messung 2","Mittelwert"]
-    headers = []
-    for i in range(0, len(headers_temp)):
-        headers.append("\\cellcolor[HTML]{C0C0C0}\\textbf{" + headers_temp[i] + "}")
+    spalte = dict()
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Maxima" + "}"] = max
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Messung 1" + "}"] = mess1
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Messung 2" + "}"] = mess2
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Mittelwert" + "}"] =mittel
 
-    data = dict()
-    data[0] = max
-    data[1] = mess1
-    data[2] = mess2
-    data[3] = mittel
-
-    print(data[0][1])
-    textabular = f"|c|{'c|' * len(headers)}"
-    #texheader = " & " + " & ".join(headers) + "\\\\"
-    texheader = " & ".join(headers) + "\\\\"
-    #texdata = "\\hline\n"
+    textabular = f"|{'c|' * len(sorted(spalte))}"
+    # texheader = " & " + " & ".join(headers) + "\\\\"
+    # texheader = " & ".join(headers) + "\\\\"
+    texheader = " & ".join(spalte.keys())
+    texheader = texheader + ' &'
+    # texdata = "\\hline\n"
     texdata = ""
-    for label in sorted(data):
-        texdata += "\\hline\n"
-        for i in range(len(data[0])):
-            texdata += f"{label} & {' & '.join(map(str, data[label]))} \\\\\n"
+    for i in range(0,len(spalte)-1):
+        texdata += '\\hline'
+        for label in sorted(spalte):
+            texdata += str(spalte[label][i]) + ' & '
 
     print("\\begin{table}[]")
     print("\\centering")
@@ -69,7 +65,6 @@ def tabularX():
     print(texdata, end="")
     print("\\hline")
     print("\\end{tabular}")
-
     print("}")
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")

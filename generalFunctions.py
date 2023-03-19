@@ -104,7 +104,7 @@ def tabularX():
     texheader = texheader + ' &'
     # texdata = "\\hline\n"
     texdata = ""
-    for i in range(0,len(spalte)-1):
+    for i in range(0,len(sorted(spalte)[0])-1):
         texdata += '\\hline'
         for label in sorted(spalte):
             texdata += str(spalte[label][i]) + ' & '

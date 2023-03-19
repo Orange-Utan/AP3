@@ -65,7 +65,8 @@ for i in range(0,6):
                 func(np.linspace(4, 8.5, 10), popt[0], popt[1]),
                 label='Fit, Messung ' + str(i+1))
         print('Messung ' + str(i+1) + ' popt:' + str(popt))
-        print('Messung ' + str(i+1) + ' pcov:' + str(pcov))
+        print('Messung ' + str(i+1) + ' pcov:' + str(np.sqrt(pcov)))
+        print('Messung ' + str(i+1) + ' NS:' + str(np.roots(popt)))
 
 ax.set_ylim(-5,400)
 plt.legend()

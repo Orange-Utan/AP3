@@ -122,26 +122,3 @@ def tabularX():
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")
     print("\\end{table}")
-
-
-
-def NullstellenSuche(func, lower, upper):
-    y0 = 0
-
-    candidates = []
-
-    k = 0
-    i = lower + k
-
-    while i <= upper:
-        while i <= lower + k + 0.1:
-            y = func
-
-            if abs(y - y0) < 0.00001:
-                candidates.append(i)
-
-            i += 0.000001
-            k += 0.1
-        i = lower + k
-
-    print(candidates[len(candidates) // 2])

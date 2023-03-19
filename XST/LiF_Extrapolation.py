@@ -47,7 +47,7 @@ fit_beta_u = [beta_4bis8p5_u[10:17+1],beta_4bis8p5_u[5+9:16+5+1],beta_4bis8p5_u[
 
 
 fig,ax =plt.subplots()
-for i in range(0,6):
+for i in range(0,1):
         ax.errorbar(
                 nominal_values(beta_u[i]),
                 nominal_values(r_u[i]),
@@ -57,21 +57,44 @@ for i in range(0,6):
                 marker='.',
                 #capsize=1.5,
                 elinewidth=0.5,
-                xerr=std_devs(beta_u[i]),
+                xerr= std_devs(beta_u[i]),
                 yerr= std_devs(r_u[i])
                 )
-        popt, pcov = curve_fit(func, xdata=nominal_values(fit_beta_u[i]), ydata=nominal_values(fit_r_u[i]))
+        #print(std_devs(fit_r_u[i]))
+        '''uncert = []
+        for j in range(0,len(fit_r_u[i])):
+                uncert.append(np.zeros(len(fit_r_u[i])))
+        for j in range(0,len(fit_r_u[i])):
+                uncert[j][j] = std_devs(fit_r_u[i][j])'''
+
+        popt, pcov = curve_fit(func,
+                               xdata=nominal_values(fit_beta_u[i]),
+                               ydata=nominal_values(fit_r_u[i]),
+                               sigma=gf.sigmaShapeForFit(fit_r_u[i])
+                               )
         ax.plot(np.linspace(4, 8.5, 10),
                 func(np.linspace(4, 8.5, 10), popt[0], popt[1]),
                 label='Fit, Messung ' + str(i+1))
+
+        '''ax.plot(np.linspace(4, 8.5, 10),
+                func(np.linspace(4, 8.5, 10), popt[0]-np.sqrt(pcov[0][0]), popt[1]-np.sqrt(pcov[1][1])),
+                label='Fit, Messung ' + str(i + 1))
+        ax.plot(np.linspace(4, 8.5, 10),
+                func(np.linspace(4, 8.5, 10), popt[0] + np.sqrt(pcov[0][0]), popt[1] + np.sqrt(pcov[1][1])),
+                label='Fit, Messung ' + str(i + 1))'''
+
         print('Messung ' + str(i+1) + ' popt:' + str(popt))
         print('Messung ' + str(i+1) + ' pcov:' + str(np.sqrt(pcov)))
         print('Messung ' + str(i+1) + ' NS:' + str(np.roots(popt)))
-        ax.scatter(np.roots(popt),
+        ax.errorbar(np.roots(popt),
                 func(np.roots(popt), popt[0], popt[1]),
                 label='Nullstelle, Messung ' + str(i + 1),
-                color ='black',
-                marker)
+                #color ='black',
+                marker='.',
+                elinewidth=1,
+                capsize=1.5,
+                xerr = abs(np.roots(popt) - np.roots([popt[0] + np.sqrt(pcov[0][0]), popt[1] + np.sqrt(pcov[1][1])]))
+                )
 
 ax.set_ylim(-5,400)
 plt.legend()

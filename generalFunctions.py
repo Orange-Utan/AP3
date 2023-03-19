@@ -122,3 +122,11 @@ def tabularX():
     print("\\caption{Berücksichtigte Ungenauigkeiten}")
     print("\\label{tab:Ungenauigkeiten}")
     print("\\end{table}")
+
+
+def sigmaShapeForFit(uncertaintiesArray):
+    uncert = []
+    for j in range(0, len(uncertaintiesArray)):
+        uncert.append(np.zeros(len(uncertaintiesArray)))
+    for j in range(0, len(uncertaintiesArray)):
+        uncert[j][j] = std_devs(uncertaintiesArray[j])

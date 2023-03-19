@@ -1,11 +1,11 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('INT/INT Tabelle - Druck.csv', "r"))
+cr = csv.reader(open('XST/XST_Data_Planck.csv', "r"))
 outputArray = []
 oA = []
 
-arr = list(range(500))  # adjust to needed
+arr = list(range(1000))  # adjust to needed
 x = 0
 for row in cr:
     arr[x] = row
@@ -14,9 +14,9 @@ for row in cr:
 
 
 startAtLine =1
-spalte = 3
-spalte_end = 3
-endAtLine =15
+spalte = 0
+spalte_end = 6
+endAtLine = 46
 
 
 

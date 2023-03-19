@@ -67,6 +67,11 @@ for i in range(0,6):
         print('Messung ' + str(i+1) + ' popt:' + str(popt))
         print('Messung ' + str(i+1) + ' pcov:' + str(np.sqrt(pcov)))
         print('Messung ' + str(i+1) + ' NS:' + str(np.roots(popt)))
+        ax.scatter(np.roots(popt),
+                func(np.roots(popt), popt[0], popt[1]),
+                label='Nullstelle, Messung ' + str(i + 1),
+                color ='black',
+                marker)
 
 ax.set_ylim(-5,400)
 plt.legend()

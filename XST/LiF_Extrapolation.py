@@ -16,6 +16,7 @@ from matplotlib.ticker import MultipleLocator, AutoMinorLocator
 
 
 
+beschSpannung_u = uarray([35,32.5,30,28,26,24],0.5)*1000
 
 beta_4bis8p5 = [4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6.0, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9, 8.0, 8.1, 8.2, 8.3, 8.4, 8.5]
 
@@ -44,10 +45,13 @@ def func(x, a, b):
 fit_r_u = [r0_4bis6p5_u[10:17+1],r1_4p5bis7_u[9:16+1],r2_5bis7p5_u[8:16+1],r3_5p5bis8p5_u[8:16+1],r4_6bis8p5_u[8:18+1],r5_6p5bis8p5_u[8:20+1]]
 fit_beta_u = [beta_4bis8p5_u[10:17+1],beta_4bis8p5_u[5+9:16+5+1],beta_4bis8p5_u[10+8:10+16+1],beta_4bis8p5_u[15+8:15+16+1],beta_4bis8p5_u[20+8:20+18+1],beta_4bis8p5_u[25+8:25+20+1]]
 
+steigungM = []
+yachsB = []
+NS_theta = []
 
 
 fig,ax =plt.subplots()
-for i in range(0,1):
+for i in range(0,6):
         ax.errorbar(
                 nominal_values(beta_u[i]),
                 nominal_values(r_u[i]),
@@ -83,19 +87,123 @@ for i in range(0,1):
                 func(np.linspace(4, 8.5, 10), popt[0] + np.sqrt(pcov[0][0]), popt[1] + np.sqrt(pcov[1][1])),
                 label='Fit, Messung ' + str(i + 1))'''
 
-        print('Messung ' + str(i+1) + ' popt:' + str(popt))
-        print('Messung ' + str(i+1) + ' pcov:' + str(np.sqrt(pcov)))
-        print('Messung ' + str(i+1) + ' NS:' + str(np.roots(popt)))
+        #print('Messung ' + str(i+1) + ' popt:' + str(popt))
+        #print('Messung ' + str(i+1) + ' pcov:' + str(np.sqrt(pcov)))
+        #print('Messung ' + str(i+1) + ' NS:' + str(np.roots(popt)))
+        steigungM.append(ufloat(popt[0],np.sqrt(pcov[0][0])))
+        yachsB.append(ufloat(popt[1],np.sqrt(pcov[1][1])))
+        NS_theta.append(ufloat(np.roots(popt),abs(np.roots(popt) - np.roots([popt[0] + np.sqrt(pcov[0][0]), popt[1] + np.sqrt(pcov[1][1])]))))
         ax.errorbar(np.roots(popt),
                 func(np.roots(popt), popt[0], popt[1]),
                 label='Nullstelle, Messung ' + str(i + 1),
                 #color ='black',
                 marker='.',
-                elinewidth=1,
-                capsize=1.5,
+                elinewidth=1.1,
+                capsize=2,
+                capthick=1.5,
+                linestyle='',
                 xerr = abs(np.roots(popt) - np.roots([popt[0] + np.sqrt(pcov[0][0]), popt[1] + np.sqrt(pcov[1][1])]))
                 )
 
-ax.set_ylim(-5,400)
+def grenzwelle(teta):
+        #a = ufloat(559,5)*10**-12
+        a = 402.7*10**-12
+        return a*unp.sin(teta*2*np.pi/360)
+
+def planck(u,lam):
+    c = 299792458
+    e = 1.60217663*10**-19
+    return lam*e*u/c
+
+grenzwell = []
+planc = []
+for i in range(0,len(yachsB)):
+        grenzwell.append(grenzwelle(NS_theta[i])*10**12)
+        #print(planck(beschSpannung_u[i], grenzwelle(NS_theta[i])))
+        planc.append(planck(beschSpannung_u[i], grenzwelle(NS_theta[i])))
+        yachsB[i] = gf.ufloatToTexStr(yachsB[i])
+        NS_theta[i] = gf.ufloatToTexStr(NS_theta[i])
+        steigungM[i] = gf.ufloatToTexStr(steigungM[i])
+        grenzwell[i] = gf.ufloatToTexStr(grenzwell[i])
+
+
+
+
+
+
+
+def tabularX():
+    spalte = dict()
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Messung" + "}"] = steigungM
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Steigung $m$" + "}"] = NS_theta
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Y-Achsenabschnitt $b$" + "}"] = grenzwell
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Nullstelle/ $\theta_0$ (°)" + "}"] = yachsB
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Grenzwellenlänge $\lambda_0$ (pm)" + "}"] = [1, 2, 3, 4, 5, 6]#, 'Mittelwert']
+    textabular = f"|{'c|' * len(sorted(spalte))}"
+    # texheader = " & " + " & ".join(headers) + "\\\\"
+    # texheader = " & ".join(headers) + "\\\\"
+    texheader = " & ".join(spalte.keys())
+    texheader = texheader + ' &'
+    # texdata = "\\hline\n"
+    texdata = ""
+    for i in range(0,6):
+        texdata += '\\hline'
+        for label in sorted(spalte):
+            texdata += str(spalte[label][i]) + ' & '
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+    print("}")
+    print("\\caption{Berücksichtigte Ungenauigkeiten}")
+    print("\\label{tab:Ungenauigkeiten}")
+    print("\\end{table}")
+
+def tabularX2():
+    spalte = dict()
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Messung" + "}"] = ['1','2','3','4','5','6',' Mittelwert']
+    planc.append(gf.weightedAverage(planc))
+    for i in range(0, len(planc)):
+        planc[i] = gf.ufloatToTexStr(planc[i])
+
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + r"Plancksches Wirkumsquantum $m$" + "}"] = planc
+
+    textabular = f"|{'c|' * len(sorted(spalte))}"
+    # texheader = " & " + " & ".join(headers) + "\\\\"
+    # texheader = " & ".join(headers) + "\\\\"
+    texheader = " & ".join(spalte.keys())
+    texheader = texheader + ' &'
+    # texdata = "\\hline\n"
+    texdata = ""
+    for i in range(0,7):
+        texdata += '\\hline'
+        for label in sorted(spalte):
+            texdata += str(spalte[label][i]) + ' & '
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+    print("}")
+    print("\\caption{Ermitteltes Plancksches Wirkumsquantum $h$, die Messung korreliert mit der Reihenzahl in Tabelle (\\ref{tab:Einstellungen})}")
+    print("\\label{tab:planckWirkung}")
+    print("\\end{table}")
+
+tabularX2()
+
+ax.set_xlabel("Winkel Beta in °")
+ax.set_ylabel("Zählrate")
+ax.set_ylim(-10,375)
 plt.legend()
-plt.show()
+#plt.show()

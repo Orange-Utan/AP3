@@ -129,4 +129,4 @@ def sigmaShapeForFit(uncertaintiesArray):
     for j in range(0, len(uncertaintiesArray)):
         uncert.append(np.zeros(len(uncertaintiesArray)))
     for j in range(0, len(uncertaintiesArray)):
-        uncert[j][j] = std_devs(uncertaintiesArray[j])
+        uncert[j][j] = std_devs(uncertaintiesArray[j])**2

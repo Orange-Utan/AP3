@@ -58,5 +58,22 @@ ax.axvline(6.97, color='blue',linestyle='dashed',linewidth=0.8, label= r'Absorpt
 ax.axvline(nominal_values(mittelwertBeta),color='green',linestyle='dashed',linewidth=0.8, label= r'$K_\beta$')
 ax.axvline(nominal_values(mittelwertAlpha),color='orange',linestyle='dashed',linewidth=0.8, label= r'$K_\alpha$')
 
+
+def lam(winkel):
+        a = 564.02/2*10**-12
+        return a*unp.sin(winkel*2*np.pi/360)
+
+def E(winkel):
+        h = 6.626*10**-34
+        c = 299792458
+        e = 1.60217663 * 10**-19
+        return h*c/lam(winkel)/e
+
+
+print(lam(ufloat(6.97,0.05))*10**12)
+print(E(ufloat(6.97,0.05))/1000)
+
+
+
 ax.legend()
 plt.show()

@@ -122,10 +122,13 @@ def func(p,a,b):
 popt3, pcov3 = curve_fit(func, xdata=nominal_values(mittel), ydata=nominal_values(brech(max)))
 ax.plot(np.linspace(-1, 0, 100), func(np.linspace(-1, 0, 100), popt3[0],popt3[1]),
         'red',
-        label='Fit an den Mittelwert: $\Delta \, n = 2,76\cdot 10^{-4} \cdot \Delta\, p + 4,36 \cdot 10^{-6}$')
+        label='Fit an den Mittelwert: $\Delta \, n = 2,76\cdot 10^{-4} \cdot \Delta\, p - 4,36 \cdot 10^{-6}$')
 
 print(popt3)
 print(np.sqrt(pcov3))
+steig = ufloat(2.764*10**(-4),1.66*10**(-6))
+Temp=ufloat(295.6,0.1)
+print(steig*Temp)
 ax.set_xlabel("$\Delta$p in bar")
 ax.set_ylabel(r"$\Delta$n")
 plt.legend()

@@ -23,11 +23,11 @@ peakcaes= ufloat(233.3,6.2)
 peakcob = uarray([401.4,455,851],[7,6.7,10.5])
 peaknat = uarray([185.8,445.6,627],[5.6,7,8.1])
 
-fig, ax = plt.subplots(1,3)
+fig, ax = plt.subplots(3)
 ax[0].errorbar(
         y=nominal_values(caesium),
         x=nominal_values(channel),
-        label = r'Caesium',
+        label = r'Cs-137',
         linestyle='-',
         color = 'm',
         marker='',
@@ -39,7 +39,7 @@ ax[0].errorbar(
 ax[0].errorbar(
         y=[14762],
         x=nominal_values(peakcaes),
-        label = r'Caesium peaks',
+        label = r'Caesium peak bei '+ '(' + gf.ufloatToTexStr(peakcaes) + ')',
         linestyle='',
         color = 'b',
         marker='.',
@@ -53,7 +53,7 @@ ax[0].errorbar(
 ax[1].errorbar(
         y=nominal_values(cobalt),
         x=nominal_values(channel),
-        label = r'Cobalt',
+        label = r'Co-60',
         color = 'aqua',
         linestyle='-',
         marker='',
@@ -66,7 +66,7 @@ ax[1].errorbar(
 ax[1].errorbar(
         y=[155,127,10],
         x=nominal_values(peakcob),
-        label = r'Cobalt peaks',
+        label = r'Cobalt peaks bei ' +'('+ gf.ufloatToTexStr(peakcob[0]) +'), ' +'('+ gf.ufloatToTexStr(peakcob[1]) +'), '+'('+ gf.ufloatToTexStr(peakcob[2]) +')',
         color = 'b',
         linestyle='',
         marker='.',
@@ -80,7 +80,7 @@ ax[1].errorbar(
 ax[2].errorbar(
         y=nominal_values(natrium),
         x=nominal_values(channel),
-        label = r'Natrium',
+        label = r'Na-22',
         color = 'orange',
         linestyle='-',
         marker='',
@@ -92,7 +92,7 @@ ax[2].errorbar(
 ax[2].errorbar(
         y=[11335,1264,676],
         x=nominal_values(peaknat),
-        label = r'Natrium peaks',
+        label = r'Natrium peaks bei '+ '('+ gf.ufloatToTexStr(peaknat[0]) +'), ' + '('+gf.ufloatToTexStr(peaknat[1])+'), '+ '('+ gf.ufloatToTexStr(peaknat[2])+')',
         color = 'r',
         linestyle='',
         marker='',
@@ -108,6 +108,11 @@ def func(x,a,b):
 #def func(alpha, n)
 
 
+
+ax[0].set_ylabel(r"Zählrate")
+ax[1].set_ylabel(r"Zählrate")
+ax[2].set_ylabel(r"Zählrate")
+ax[2].set_xlabel(r"Channel")
 
 ax[0].legend()
 ax[1].legend()

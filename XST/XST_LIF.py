@@ -61,9 +61,9 @@ stromI = uarray(np.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1])/1000,20*10**(-
 def netzabstand(K_winkel, winkel, ordnung):
         return K_winkel*ordnung/2/unp.sin(winkel*2*np.pi/360)
 
-print(2*netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(6.48,0.08),1)*10**12)
-print(2*netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(7.29,0.08),1)*10**12)
-print(2*10**12*gf.weightedAverage(np.array([netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(6.48,0.08),1),netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(7.29,0.08),1)])))
+print(2*netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(9.14,0.08),1)*10**12)
+print(2*netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(10.26,0.08),1)*10**12)
+print(2*10**12*gf.weightedAverage(np.array([netzabstand(ufloat(63.11,0.27)*10**-12,ufloat(9.14,0.08),1),netzabstand(ufloat(70.97,0.26)*10**-12,ufloat(10.26,0.08),1)])))
 
 
 fig,ax =plt.subplots()

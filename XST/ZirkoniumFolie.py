@@ -60,7 +60,7 @@ ax.axvline(nominal_values(mittelwertAlpha),color='orange',linestyle='dashed',lin
 
 
 def lam(winkel):
-        a = 564.02/2*10**-12
+        a = 564.02*10**-12
         return a*unp.sin(winkel*2*np.pi/360)
 
 def E(winkel):

@@ -29,6 +29,10 @@ Na_2_chan = ufloat(445.6,7)
 Na_3_chan = ufloat(627.0,8.1)
 Na_E = 1275
 
+
+fitList_x = [Cs_chan,Co_chan[0],Co_chan[1],Na_2_chan,Na_chan,Na_3_chan,Co_2_chan]
+fitList_y = [Cs_E,Co_E[0],Co_E[1],Na_E,511,Na_E+511,Co_E[0]+Co_E[1]]
+
 fig, ax = plt.subplots()
 
 ax.errorbar(
@@ -81,7 +85,7 @@ ax.errorbar(
 ax.errorbar(
             x=nominal_values(Na_chan),
             y=511,
-            label = r'Ruheenergie des Elektrons beim Aussenden der $\gamma$-Quanten beim $\beta^+$-Zerfalls des Na-22',
+            label = 'Ruheenergie des Elektrons beim Aussenden \nder $\gamma$-Quanten beim $\\beta^+$-Zerfalls des Na-22',
             linestyle='-',
             color = 'red',
             marker='',
@@ -104,11 +108,20 @@ ax.errorbar(
 def func(x,a,b):
     return a*x +b
 
+
+popt, pcov = curve_fit(func, xdata=nominal_values(fitList_x), ydata=nominal_values(fitList_y))
+ax.plot(np.linspace(1,1024,5),
+        func(np.linspace(1,1024,5),*popt),
+        linewidth=0.7,
+        label='Kalibrierungs Fit'
+        )
+print(popt)
+
 ax.set_xlabel('Channel', fontsize= 16)
 ax.set_ylabel('Energie [keV]', fontsize= 16)
 ax.tick_params(axis='both', which='major', labelsize=14)
 
-plt.legend(loc=1, prop={'size': 4})
+plt.legend(loc=1, prop={'size': 16})
 
-plt.legend()
+plt.legend(fontsize= 13)
 plt.show()

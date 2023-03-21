@@ -1,11 +1,11 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('INT/Unbenannte Tabelle - Plexiglas.csv', "r"))
+cr = csv.reader(open('RAD/AP3-RAD - Kalibrierung.csv', "r"))
 outputArray = []
 oA = []
 
-arr = list(range(1000))  # adjust to needed
+arr = list(range(1050))  # adjust to needed
 x = 0
 for row in cr:
     arr[x] = row
@@ -13,10 +13,10 @@ for row in cr:
 
 
 
-startAtLine =7
-spalte = 9
-spalte_end = 10
-endAtLine = 23
+startAtLine =1
+spalte = 0
+spalte_end = 5
+endAtLine = 1023
 
 
 

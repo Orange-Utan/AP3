@@ -200,7 +200,7 @@ def tabularX2():
     print("\\label{tab:planckWirkung}")
     print("\\end{table}")
 
-tabularX2()
+tabularX()
 
 ax.set_xlabel("Winkel Beta in °")
 ax.set_ylabel("Zählrate")

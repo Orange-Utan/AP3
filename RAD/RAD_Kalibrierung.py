@@ -109,14 +109,21 @@ def func(x,a,b):
 
 
 
-ax[0].set_ylabel(r"Zählrate")
-ax[1].set_ylabel(r"Zählrate")
-ax[2].set_ylabel(r"Zählrate")
-ax[2].set_xlabel(r"Channel")
+ax[0].set_ylabel(r"Zählrate", fontsize = 14)
+ax[1].set_ylabel(r"Zählrate", fontsize = 14)
+ax[2].set_ylabel(r"Zählrate", fontsize = 14)
+ax[2].set_xlabel(r"Channel", fontsize = 14)
 
-ax[0].legend()
-ax[1].legend()
-ax[2].legend()
+ax[0].tick_params(axis='both', which='major', labelsize=14)
+ax[1].tick_params(axis='both', which='major', labelsize=14)
+ax[2].tick_params(axis='both', which='major', labelsize=14)
+
+
+
+
+ax[0].legend(loc=1, prop={'size': 14})
+ax[1].legend(loc=1, prop={'size': 14})
+ax[2].legend(loc=1, prop={'size': 14})
 
 
 

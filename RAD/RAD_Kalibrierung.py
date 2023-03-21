@@ -39,7 +39,7 @@ ax[0].errorbar(
 ax[0].errorbar(
         y=[14762],
         x=nominal_values(peakcaes),
-        label = r'Caesium',
+        label = r'Caesium peaks',
         linestyle='',
         color = 'b',
         marker='.',
@@ -53,7 +53,7 @@ ax[0].errorbar(
 ax[1].errorbar(
         y=nominal_values(cobalt),
         x=nominal_values(channel),
-        label = r'Cobalt peaks',
+        label = r'Cobalt',
         color = 'aqua',
         linestyle='-',
         marker='',
@@ -107,24 +107,13 @@ def func(x,a,b):
 
 #def func(alpha, n)
 
-popt1, pcov1 = curve_fit(func, ydata=[155,127,10], xdata=nominal_values(peakcob))
-ax[1].plot(np.linspace(400, 900, 100), func(np.linspace(400, 900, 100), popt1[0],popt1[1]),
-        'b',
-        label=r'Fit,'  )
 
-print(popt1)
-print(np.sqrt(pcov1))
 
-popt2, pcov2 = curve_fit(func, ydata= [11335,1264,676], xdata=nominal_values(peaknat))
-ax[2].plot(np.linspace(200, 700, 100), func(np.linspace(200, 700, 100), popt2[0],popt2[1]),
-        'r',
-        label=r'Fit,'  )
-
-print(popt2)
-print(np.sqrt(pcov2))
+ax[0].legend()
+ax[1].legend()
+ax[2].legend()
 
 
 
-plt.legend()
 plt.show()
 

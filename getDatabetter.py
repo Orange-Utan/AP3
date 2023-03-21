@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('RAD/AP3-RAD - Kalibrierung.csv', "r"))
+cr = csv.reader(open('RAD/AP3-RAD - Untergrund.csv', "r"))
 outputArray = []
 oA = []
 
@@ -15,7 +15,7 @@ for row in cr:
 
 startAtLine =1
 spalte = 0
-spalte_end = 5
+spalte_end = 3
 endAtLine = 1023
 
 

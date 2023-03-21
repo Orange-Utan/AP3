@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-cr = csv.reader(open('XST/XST_Data_Planck.csv', "r"))
+cr = csv.reader(open('INT/Unbenannte Tabelle - Plexiglas.csv', "r"))
 outputArray = []
 oA = []
 
@@ -13,10 +13,10 @@ for row in cr:
 
 
 
-startAtLine =1
-spalte = 0
-spalte_end = 6
-endAtLine = 46
+startAtLine =7
+spalte = 9
+spalte_end = 10
+endAtLine = 23
 
 
 

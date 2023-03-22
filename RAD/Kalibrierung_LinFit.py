@@ -157,7 +157,39 @@ def tabularX():
     print("\\label{tab:Kalibrierung}")
     print("\\end{table}")
 
-tabularX()
+def tabularX2():
+    spalte = dict()
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Strahlenart" + "}"] = ['Photonen', 'Elektronen, Myonen', 'Neutronen', '     $< 10\\,$keV', '     $1\\,$keV bis $100\\,$keV', '     $100\\,$keV bis $2\\,$MeV', '     $2\\,$MeV bis $20\\,$MeV', '     $< 20\\,$MeV', 'Protonen', '$\\alpha$-Teilchen, Spaltfragmente']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Wichtungsfaktor" + "}"] = [1,1,'',5,10,20,10,5,5,20]
+
+    textabular = f"|{'c|' * len(sorted(spalte))}"
+    # texheader = " & " + " & ".join(headers) + "\\\\"
+    # texheader = " & ".join(headers) + "\\\\"
+    texheader = " & ".join(spalte.keys())
+    texheader = texheader + ' &'
+    # texdata = "\\hline\n"
+    texdata = ""
+    for i in range(0,10):
+        texdata += '\\hline '
+        for label in spalte.items():
+            texdata += str(label[1][i]) + ' & '
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+    print("}")
+    print("\\caption{Gewichtungsfaktoren für die Strahlungsdosis^{[\\ref{src:Anleitung}]}}")
+    print("\\label{tab:WichtungStrahlungsdosis}")
+    print("\\end{table}")
+
+
+tabularX2()
 
 
 

@@ -104,10 +104,10 @@ def tabularX():
     texheader = texheader + ' &'
     # texdata = "\\hline\n"
     texdata = ""
-    for i in range(0,len(spalte.values()[0])-1):
-        texdata += '\\hline'
-        for label in sorted(spalte):
-            texdata += str(spalte[label][i]) + ' & '
+    for i in range(0,3):
+        texdata += '\\hline '
+        for label in spalte.items():
+            texdata += str(label[1][i]) + ' & '
 
     print("\\begin{table}[]")
     print("\\centering")

@@ -116,6 +116,7 @@ ax.plot(np.linspace(1,1024,5),
         label='Kalibrierungs Fit'
         )
 print(popt)
+print(np.sqrt(pcov))
 
 ax.set_xlabel('Channel', fontsize= 16)
 ax.set_ylabel('Energie [keV]', fontsize= 16)
@@ -123,5 +124,44 @@ ax.tick_params(axis='both', which='major', labelsize=14)
 
 plt.legend(loc=1, prop={'size': 16})
 
+def tabularX():
+    spalte = dict()
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Isotop" + "}"] = ['Na-22', 'Co-60', 'Cs-137']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Halbwertszeit [a]" + "}"] = ['2,6', '5,3', '30,2']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Zerfall" + "}"] = ['$\\beta^+$', '$\\beta^-$', '$\\beta^-$']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_1$ [keV]" + "}"] = [1275, 1173, 662]
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_2$ [keV]" + "}"] = ['', 1333, '']
+    textabular = f"|{'c|' * len(sorted(spalte))}"
+    # texheader = " & " + " & ".join(headers) + "\\\\"
+    # texheader = " & ".join(headers) + "\\\\"
+    texheader = " & ".join(spalte.keys())
+    texheader = texheader + ' &'
+    # texdata = "\\hline\n"
+    texdata = ""
+    for i in range(0,3):
+        texdata += '\\hline '
+        for label in spalte.items():
+            texdata += str(label[1][i]) + ' & '
+
+    print("\\begin{table}[]")
+    print("\\centering")
+    print("\\resizebox{\columnwidth}{!}{")
+    print("\\begin{tabular}{" + textabular + "}")
+    print("\\hline")
+    print(texheader)
+    print(texdata, end="")
+    print("\\hline")
+    print("\\end{tabular}")
+    print("}")
+    print("\\caption{Energie der $\gamma$-Quanten einiger bekannter Proben zur Kalibrierung des NaI-Szintillator^{[\\ref{src:Anleitung}]}}")
+    print("\\label{tab:Kalibrierung}")
+    print("\\end{table}")
+
+tabularX()
+
+
+
+
+
 plt.legend(fontsize= 13)
-plt.show()
+#plt.show()

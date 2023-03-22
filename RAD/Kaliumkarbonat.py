@@ -48,12 +48,15 @@ ax.errorbar(
         )
 
 temp =nominal_values(kalium_tat)
-#print(max(temp))
-temp = np.delete(temp, 130.0)
+print(max(temp))
+print(np.where(temp==130.0))
+np.delete(temp, 25)
+print(max(temp))
+print( E(ufloat(497.6,8.2)))
 ax.errorbar(
         x=nominal_values(peak),
-        y=max(temp),
-        label = r'Kaliumkarbonat ohne Untergrund',
+        y=105.39,
+        label = r'Peak bei $(1,44\pm0,04) \cdot 10^3$ keV',
         color = 'r',
         linestyle='-',
         marker='.',

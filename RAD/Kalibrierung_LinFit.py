@@ -126,11 +126,11 @@ plt.legend(loc=1, prop={'size': 16})
 
 def tabularX():
     spalte = dict()
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Isotop" + "}"] = ['Na-22', 'Co-60', 'Cs-137']
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Halbwertszeit [a]" + "}"] = ['2,6', '5,3', '30,2']
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Zerfall" + "}"] = ['$\\beta^+$', '$\\beta^-$', '$\\beta^-$']
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_1$ [keV]" + "}"] = [1275, 1173, 662]
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_2$ [keV]" + "}"] = ['', 1333, '']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Isotop" + "}"] = ['Na-22', 'Co-60', 'Cs-137', 'Ka-40']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Halbwertszeit [a]" + "}"] = ['2,6', '5,3', '30,2', '1,3 \\cdot 10^9 a']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "Zerfall" + "}"] = ['$\\beta^+$', '$\\beta^-$', '$\\beta^-$', '$\\beta^+$']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_1$ [keV]" + "}"] = [1275, 1173, '662 (85\\%)', '1461 (11\\%)']
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "$\gamma_2$ [keV]" + "}"] = ['', 1333, '', '']
     textabular = f"|{'c|' * len(sorted(spalte))}"
     # texheader = " & " + " & ".join(headers) + "\\\\"
     # texheader = " & ".join(headers) + "\\\\"
@@ -138,7 +138,7 @@ def tabularX():
     texheader = texheader + ' &'
     # texdata = "\\hline\n"
     texdata = ""
-    for i in range(0,3):
+    for i in range(0,4):
         texdata += '\\hline '
         for label in spalte.items():
             texdata += str(label[1][i]) + ' & '
@@ -189,7 +189,7 @@ def tabularX2():
     print("\\end{table}")
 
 
-tabularX2()
+tabularX()
 
 
 

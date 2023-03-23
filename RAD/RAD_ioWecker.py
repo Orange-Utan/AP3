@@ -44,9 +44,11 @@ ax.errorbar(
         )
 
 xwerte = [30,70,89,108,128,215.5,271,389,600]
+xWerteEString = []
 colors = ['xkcd:turquoise','xkcd:mauve','xkcd:royal blue','xkcd:lilac','xkcd:tan','xkcd:salmon','xkcd:cyan','xkcd:orange','xkcd:pink']
 i= 0
 for x in xwerte:
+    xWerteEString.append(gf.ufloatToTexStr(E(x)))
     ax.axvline(nominal_values(E(x)), color = colors[i], linestyle='dashed',linewidth=1.5, label= r'Peak bei ' + gf.ufloatToTexStr(E(x)) +  '$\,$keV')
     i+=1
 
@@ -64,7 +66,7 @@ ax.tick_params(axis='both', which='major', labelsize=14)
 #ax.set_ylim(-50,40)
 def tabularX():
     spalte = dict()
-    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "gemessene Energie der Wellenlänge [keV]" + "}"] = xwerte
+    spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "gemessene Energie der Wellenlänge [keV]" + "}"] = xWerteEString
     spalte["\\cellcolor[HTML]{C0C0C0}\\textbf{" + "zugehöriges Isotop" + "}"] = ['U-238','Ra-226', 'U-238 und Ra-226 gleichzeitig', 'Pb-214', 'Pb-214', 'Bi-214', 'Pa-234', 'Bi-214', 'Bi-214' ]
 
     textabular = f"|{'c|' * len(sorted(spalte))}"
@@ -74,7 +76,7 @@ def tabularX():
     texheader = texheader + ' &'
     # texdata = "\\hline\n"
     texdata = ""
-    for i in range(0,5):
+    for i in range(0,9):
         texdata += '\\hline '
         for label in spalte.items():
             texdata += str(label[1][i]) + ' & '

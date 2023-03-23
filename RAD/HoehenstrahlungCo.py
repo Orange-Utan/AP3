@@ -32,7 +32,7 @@ e = E(channel)
 
 fig, ax = plt.subplots()
 ax.errorbar(
-        y=nominal_values(t2h),
+        y=nominal_values(t400),
         x=nominal_values(e),
         label = 'Radioaktives Spektrum CO-60, Höhenmessung',
         color = 'purple',
@@ -47,20 +47,13 @@ ax.errorbar(
 #ax.axvline(nominal_values(E(28.5)), color = 'cyan', linestyle='dashed',linewidth=1.5, label= r'Peak bei ' + gf.ufloatToTexStr(E(28.5)) +  '$\,$keV')
 
 
-maxima = [99]
+maxima = [24,27,51]
 colors = ['xkcd:turquoise','xkcd:mauve','xkcd:royal blue','xkcd:lilac','xkcd:tan','xkcd:salmon','xkcd:cyan','xkcd:orange','xkcd:pink']
 i= 0
 for x in maxima:
     ax.axvline(nominal_values(E(x)), color = colors[i], linestyle='dashed',linewidth=1.5, label= r'Peak bei ' + gf.ufloatToTexStr(E(x)) +  '$\,$keV')
     i += 1
 #ax.axvline(1700, color='orange',linestyle='dashed',linewidth=1.5, label= r'Peak bei 1700 keV')
-
-out = 0
-for i in range(100,len(t2h)):
-        out += t2h[i]*E(channel[i])*1000
-print(out*12*365/(1.29/1000)*1.6022e-19)
-
-#*6*24*365*100*1000*1.6022e-19*0.35/1000*10**9)
 
 
 
@@ -101,7 +94,6 @@ def tabularX():
     print("\\end{table}")
 tabularX()
 
-ax.set_xlim(nominal_values(E(99)),nominal_values(E(999)))
-ax.set_ylim(nominal_values(-10),nominal_values(40))
+ax.set_xlim(0,3000)
 plt.legend(fontsize= 13)
 plt.show()

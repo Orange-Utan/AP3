@@ -196,4 +196,4 @@ tabularX()
 
 
 plt.legend(fontsize= 13)
-#plt.show()
+plt.show()
